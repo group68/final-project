@@ -46,6 +46,11 @@ class SQLQuery
         }
     }
 
+    function sanitize($value)
+    {
+        return mysqli_escape_string($this->_dbHandle, $value);
+    }
+
     /** Select Query **/
 
     function where($field, $value)
@@ -262,10 +267,9 @@ class SQLQuery
 
     function custom($query)
     {
-
         global $inflect;
 
-        $this->_result = mysqli_query($query, $this->_dbHandle);
+        $this->_result = mysqli_query($this->_dbHandle, $query);
 
         $result = array();
         $table = array();
@@ -276,12 +280,11 @@ class SQLQuery
             if (mysqli_num_rows($this->_result) > 0) {
                 $numOfFields = mysqli_num_fields($this->_result);
                 for ($i = 0; $i < $numOfFields; ++$i) {
-                    array_push($table, mysqli_field_table($this->_result, $i));
+                    array_push($table, ucfirst($inflect->singularize(mysqli_field_table($this->_result, $i))));
                     array_push($field, mysqli_field_name($this->_result, $i));
                 }
                 while ($row = mysqli_fetch_row($this->_result)) {
                     for ($i = 0; $i < $numOfFields; ++$i) {
-                        $table[$i] = ucfirst($inflect->singularize($table[$i]));
                         $tempResults[$table[$i]][$field[$i]] = $row[$i];
                     }
                     array_push($result, $tempResults);

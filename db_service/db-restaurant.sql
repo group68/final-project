@@ -1,8 +1,10 @@
--- # Host: 127.0.0.1 
--- # Database: food-order
+CREATE DATABASE restaurant;
+-- Grant permission
+GRANT ALL PRIVILEGES ON restaurant.* TO 'mysql_client'@'%';
+
+USE restaurant;
 
 -- DUMP OF TABLE CUSTOMERS
-
 DROP TABLE if EXISTS `customers`;
 CREATE TABLE `customers` (
   `customer_id` int unsigned NOT NULL auto_increment,

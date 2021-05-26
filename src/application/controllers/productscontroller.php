@@ -8,10 +8,13 @@ class ProductsController extends VanillaController
 
     function view($id = null)
     {
-        $this->Product->id = $id;
-        $this->Product->showHasOne();
-        $this->Product->showHMABTM();
-        $product = $this->Product->search();
+        $product_id = $this->Product->sanitize($id);
+        $product = $this->Product->custom("SELECT * FROM `products` WHERE `product_id` = {$product_id}");
+        if (count($product) > 0) {
+            $product = $product[0];
+        } else {
+            
+        }
 
         $this->set_template_variable('product', $product);
     }
