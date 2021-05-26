@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>My E-Commerce Website</title>
+<title>Fast-food restaurant</title>
 <style>
 html, body, div, span, applet, object, iframe,
 h2, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -110,4 +110,4 @@ background-color:#FFFF33
 </head>
 
 <body>
-<div class="navigation"><h1>My E-Commerce Website</h1>
+<div class="navigation"><h1>Fast-food restaurant</h1>
