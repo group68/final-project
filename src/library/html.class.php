@@ -1,4 +1,5 @@
 <?php
+include_once(ROOT . DS . 'library' . DS . 'sqlconnection.class.php');
 
 class HTML
 {
@@ -9,12 +10,12 @@ class HTML
 
     function __construct()
     {
-        $this->_dbHandle = @mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD);
+        $this->_dbHandle = SQLConnection::open_connection();
     }
 
     function __destruct()
     {
-        @mysqli_close($this->_dbHandle);
+        SQLConnection::close_connection($this->_dbHandle);
     }
 
     function shortenUrls($data)
