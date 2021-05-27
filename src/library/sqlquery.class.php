@@ -25,25 +25,21 @@ class SQLQuery
     {
         $this->_dbHandle = @mysqli_connect($address, $account, $pwd);
         if ($this->_dbHandle) {
-            if (mysqli_select_db($this->_dbHandle, $name)) {
-                return 1;
-            } else {
-                return 0;
+            if (mysqli_set_charset($this->_dbHandle, 'utf8mb4'))
+            {
+                if (mysqli_select_db($this->_dbHandle, $name)) {
+                    return true;
+                }
             }
-        } else {
-            return 0;
         }
+        return false;
     }
 
     /** Disconnects from database **/
 
     function disconnect()
     {
-        if (@mysqli_close($this->_dbHandle) === true) {
-            return 1;
-        } else {
-            return 0;
-        }
+        return @mysqli_close($this->_dbHandle);
     }
 
     function sanitize($value)
