@@ -45,9 +45,10 @@ CREATE TABLE `products`(
     `category` INT
 )ENGINE = InnoDB;
 LOCK TABLES `products` WRITE;
-/* INSERT QUERY NO: 1 */
 INSERT INTO `products`(`product_id`, `name`, `image_url`, `price`, `category`)
-VALUES(
+VALUES
+/* INSERT QUERY NO: 1 */
+(
     1,
     '2 pcs Fried Chicken Meal',
     'https://mcdonalds.vn/uploads/2018/2-ga-ran.png',
@@ -515,25 +516,18 @@ CREATE TABLE `employees`(
     `username` VARCHAR(20) NOT NULL DEFAULT '',
     `password` VARCHAR(20) NOT NULL DEFAULT '',
     `name` VARCHAR(50) DEFAULT NULL,
-    `manager_id` INT UNSIGNED NOT NULL DEFAULT '0',
+    `is_manager` BOOLEAN DEFAULT false,
     PRIMARY KEY(`employee_id`)
 ) ENGINE = InnoDB; 
 
 LOCK TABLE `employees` WRITE;
 INSERT INTO `employees`
-VALUES(1, 'dungnt', '123456', 'Dung NT', 0),(2, 'duyna', '123456', 'Duy NT', 1),(3, 'hahm', '123456', 'Ha HM', 1),(4, 'hahm2', '123456', 'Ha HM 2', 1),(
-    5,
-    'tungbt',
-    '123456',
-    'Tung BT 1',
-    1
-),(
-    6,
-    'tungbt2',
-    '123456',
-    'Tung BT 2',
-    1
-);
+VALUES(1, 'dungnt', '123456', 'Dung NT', true),
+      (2, 'duyna', '123456', 'Duy NT', false),
+      (3, 'hahm', '123456', 'Ha HM', false),
+      (4, 'hahm2', '123456', 'Ha HM 2', false),
+      (5, 'tungbt', '123456', 'Tung BT 1', false),
+      (6, 'tungbt2', '123456', 'Tung BT 2', false);
 UNLOCK TABLES;
 
 -- DUMP TABLE INGREDIENTS
@@ -549,9 +543,10 @@ CREATE TABLE `ingredients`(
 ) ENGINE = InnoDB;
 
 LOCK TABLE `ingredients` WRITE;
-/* INSERT QUERY NO: 1 */
 INSERT INTO ingredients(ingredient_id, name, quantity, price_unit)
-VALUES (1, 'potato', 20, 5000),
+VALUES
+/* INSERT QUERY NO: 1 */
+(1, 'potato', 20, 5000),
 /* INSERT QUERY NO: 2 */
 (2, 'griddle cake', 20, 5000),
 /* INSERT QUERY NO: 3 */
@@ -665,11 +660,11 @@ UPDATE
 UNLOCK TABLES;
 
 
--- DUMP OF TABLE OrderItems
+-- DUMP OF TABLE order_items
 
 DROP TABLE IF EXISTS
-    `orderItems`;
-CREATE TABLE `orderItems`(
+    `order_items`;
+CREATE TABLE `order_items`(
     `id` INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `product_id` INT UNSIGNED NOT NULL,
     `order_id` INT UNSIGNED NOT NULL,
@@ -678,9 +673,8 @@ CREATE TABLE `orderItems`(
     CONSTRAINT fk_1 FOREIGN KEY(`product_id`) REFERENCES `products`(`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT fk_2 FOREIGN KEY(`order_id`) REFERENCES `orders`(`order_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) AUTO_INCREMENT = 1; 
-LOCK TABLE `orderItems` WRITE;
-INSERT INTO `orderItems`
-
+LOCK TABLE `order_items` WRITE;
+INSERT INTO `order_items`
 VALUES(0, 1, 1, 2, 50000),(0, 2, 1, 2, 50000),(0, 3, 1, 2, 50000)
 ON DUPLICATE KEY
 UPDATE
@@ -701,10 +695,10 @@ CREATE TABLE `importment_requests`(
 
 
 
--- DUMP OF TABLE importmentItems 
+-- DUMP OF TABLE import_items
 DROP TABLE IF EXISTS
-    `importItems`;
-CREATE TABLE `importItems`(
+    `import_items`;
+CREATE TABLE `import_items`(
     `request_id` INT UNSIGNED NOT NULL,
     `ingredient_id` INT UNSIGNED NOT NULL,
     `quantity` INT UNSIGNED NOT NULL,
@@ -730,14 +724,11 @@ CREATE TABLE `product_include`(
 ) ENGINE = INNODB; 
 LOCK TABLE
     `product_include` WRITE;
-INSERT IGNORE
+INSERT
 INTO `product_include`(
     `product_id`,
     `ingredient_id`,
     `quantity`
 )
-VALUES(1, 28, 5),(2, 9, 4),(3, 12, 4),(4, 3, 3),(5, 17, 3),(6, 9, 3),(7, 11, 3),(8, 25, 5),(9, 19, 4),(10, 16, 2),(11, 18, 3),(12, 16, 5),(13, 26, 1),(14, 8, 2),(15, 23, 5),(16, 7, 5),(17, 22, 4),(18, 16, 4),(19, 8, 3),(20, 9, 3),(21, 16, 2),(22, 5, 2),(23, 18, 3),(24, 25, 1),(25, 20, 2),(26, 26, 3),(27, 2, 1),(28, 18, 3),(29, 1, 1),(30, 22, 3),(31, 25, 2),(32, 22, 4),(33, 22, 2),(34, 10, 3),(35, 22, 2),(36, 12, 5),(37, 23, 4),(38, 23, 1),(39, 18, 1),(40, 21, 2),(41, 14, 4),(42, 31, 3),(43, 6, 4),(44, 13, 5),(45, 10, 5),(46, 12, 2),(47, 5, 4),(48, 25, 1),(49, 9, 4),(50, 28, 2),(51, 3, 3),(52, 25, 4),(53, 5, 3),(54, 29, 3),(55, 1, 5),(56, 11, 3),(57, 21, 4),(17, 13, 1),(4, 18, 3),(10, 13, 3),(9, 20, 4),(30, 27, 4),(23, 5, 3),(47, 17, 3),(40, 30, 1),(39, 8, 2),(53, 17, 1),(10, 17, 5),(13, 32, 1),(23, 31, 3),(1, 7, 2),(39, 20, 5),(12, 4, 2),(40, 10, 4),(46, 23, 4),(33, 15, 1),(7, 30, 1),(45, 18, 1),(5, 4, 2),(7, 9, 3),(26, 21, 3),(35, 22, 5),(54, 28, 2),(48, 29, 4),(51, 22, 5),(26, 11, 1),(23, 7, 3),(18, 9, 3),(5, 1, 5),(35, 15, 5),(57, 6, 1),(44, 1, 5),(19, 1, 5),(3, 8, 3),(20, 12, 1),(35, 3, 4),(22, 19, 4),(13, 20, 4),(31, 20, 2),(12, 26, 2),(10, 2, 5),(2, 18, 4),(43, 9, 3),(53, 22, 5),(36, 15, 2),(41, 16, 3),(14, 27, 4),(17, 23, 4),(57, 31, 2),(2, 4, 4),(52, 16, 1),(57, 31, 3),(52, 30, 4),(40, 31, 5),(10, 16, 3),(9, 22, 4),(56, 4, 1),(36, 26, 1),(1, 26, 2),(20, 11, 4),(45, 7, 4),(8, 21, 2),(57, 10, 2),(12, 12, 2),(29, 19, 3),(34, 3, 1),(12, 30, 1),(41, 5, 2),(17, 23, 5),(13, 32, 4),(25, 10, 5),(9, 7, 4),(16, 20, 4),(9, 13, 2),(22, 24, 4),(44, 16, 1),(9, 17, 2),(14, 27, 3),(57, 9, 1),(10, 9, 5),(16, 6, 1),(23, 28, 3),(15, 27, 1),(35, 23, 2),(18, 6, 4),(24, 6, 3),(5, 20, 1),(50, 16, 5),(40, 21, 5),(26, 3, 4),(56, 12, 5),(13, 12, 3),(22, 7, 2),(45, 1, 3),(16, 27, 2),(33, 27, 3),(27, 7, 1);
+VALUES(1,28,5),(2,9,4),(3,12,4),(4,3,3),(5,17,3),(6,9,3),(7,11,3),(8,25,5),(9,19,4),(10,16,2),(11,18,3),(12,16,5),(13,26,1),(14,8,2),(15,23,5),(16,7,5),(17,22,4),(18,16,4),(19,8,3),(20,9,3),(21,16,2),(22,5,2),(23,18,3),(24,25,1),(25,20,2),(26,26,3),(27,2,1),(28,18,3),(29,1,1),(30,22,3),(31,25,2),(32,22,4),(33,22,2),(34,10,3),(35,22,2),(36,12,5),(37,23,4),(38,23,1),(39,18,1),(40,21,5),(41,14,4),(42,31,3),(43,6,4),(44,13,5),(45,10,5),(46,12,2),(47,5,4),(48,25,1),(49,9,4),(50,28,2),(51,3,3),(52,25,4),(53,5,3),(54,29,3),(55,1,5),(56,11,3),(57,21,4),(17,13,1),(4,18,3),(10,13,3),(9,20,4),(30,27,4),(23,5,3),(47,17,3),(40,30,1),(39,8,2),(53,17,1),(10,17,5),(13,32,4),(23,31,3),(1,7,2),(39,20,5),(12,4,2),(40,10,4),(46,23,4),(33,15,1),(7,30,1),(45,18,1),(5,4,2),(7,9,3),(26,21,3),(54,28,2),(48,29,4),(51,22,5),(26,11,1),(23,7,3),(18,9,3),(5,1,5),(35,15,5),(57,6,1),(44,1,5),(19,1,5),(3,8,3),(20,12,1),(35,3,4),(22,19,4),(13,20,4),(31,20,2),(12,26,2),(10,2,5),(2,18,4),(43,9,3),(53,22,5),(36,15,2),(41,16,3),(14,27,3),(17,23,5),(57,31,2),(2,4,4),(52,16,1),(52,30,4),(40,31,5),(9,22,4),(56,4,1),(36,26,1),(1,26,2),(20,11,4),(45,7,4),(8,21,2),(57,10,2),(12,12,2),(29,19,3),(34,3,1),(12,30,1),(41,5,2),(25,10,5),(9,7,4),(16,20,4),(9,13,2),(22,24,4),(44,16,1),(9,17,2),(57,9,1),(10,9,5),(16,6,1),(23,28,3),(15,27,1),(35,23,2),(18,6,4),(24,6,3),(5,20,1),(50,16,5),(26,3,4),(56,12,5),(13,12,3),(22,7,2),(45,1,3),(16,27,2),(33,27,3),(27,7,1);
 UNLOCK TABLES;
-    ;
-
-
