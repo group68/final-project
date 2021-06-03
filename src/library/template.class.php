@@ -46,4 +46,33 @@ class Template
             }
         }
     }
+
+    function renderError($doNotRenderHeader = false)
+    {
+        $html = new HTML;
+
+        if ($doNotRenderHeader === false) {
+
+            if (file_exists(ROOT . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'header.php')) {
+                include(ROOT . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'header.php');
+            } else {
+                include(ROOT . DS . 'application' . DS . 'views' . DS . 'header.php');
+            }
+        }
+
+        if (file_exists(ROOT . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'error.php')) {
+            include(ROOT . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'error.php');
+        }
+        else {
+            include(ROOT . DS . 'application' . DS . 'views' . DS . 'error.php');
+        }
+
+        if ($doNotRenderHeader === false) {
+            if (file_exists(ROOT . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'footer.php')) {
+                include(ROOT . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'footer.php');
+            } else {
+                include(ROOT . DS . 'application' . DS . 'views' . DS . 'footer.php');
+            }
+        }
+    }
 }
