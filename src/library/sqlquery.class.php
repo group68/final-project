@@ -265,7 +265,13 @@ class SQLQuery
     {
         global $inflect;
 
-        $this->_result = mysqli_query($this->_dbHandle, $query);
+        $result = mysqli_query($this->_dbHandle, $query);
+
+        if ($result === false) {
+            return false;
+        }
+
+        $this->_result = $result;
 
         $result = array();
         $table = array();
