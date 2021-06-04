@@ -82,12 +82,12 @@ function callHook()
     $queryString = array();
 
     if (!isset($url)) {
-        $controller = $default['controller'];
+        $controllerName = $default['controller'];
         $action = $default['action'];
     } else {
         $url = routeURL($url);
         $urlArray = explode("/", $url);
-        $controller = $urlArray[0];
+        $controllerName = $urlArray[0];
         array_shift($urlArray);
         if (isset($urlArray[0])) {
             $action = $urlArray[0];
@@ -98,17 +98,29 @@ function callHook()
         $queryString = $urlArray;
     }
 
-    $controllerName = ucfirst($controller) . 'Controller';
-
-    $dispatch = new $controllerName($controller, $action);
-
-    if (method_exists($controllerName, $action)) {
-        call_user_func_array(array($dispatch, "beforeAction"), $queryString);
-        call_user_func_array(array($dispatch, $action), $queryString);
-        call_user_func_array(array($dispatch, "afterAction"), $queryString);
-    } else {
-        /* Error Generation Code Here */
+    if (!checkControllerName($controllerName)) {
+        exitWithError();
     }
+
+    $controllerClassName = ucfirst($controllerName) . 'Controller';
+
+    if (method_exists($controllerClassName, $action)) {
+        $controller = new $controllerClassName($controllerName, $action, $queryString);
+        call_user_func_array(array($controller, 'execute'), array());
+    } else {
+        exitWithError();
+    }
+}
+
+function checkControllerName($controllerName)
+{
+    return file_exists(ROOT . DS . 'application' . DS . 'controllers' . DS . "{$controllerName}controller" . '.php');
+}
+
+function exitWithError()
+{
+    http_response_code(404);
+    die();
 }
 
 
