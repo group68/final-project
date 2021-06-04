@@ -1,28 +1,31 @@
 
 <?php
 
+class adminData
+{
+    public $revenues = array();
+    public $increasing_amount = array();
+    public $decreasing_amount = array();
+    public $best_sellers;
+    public $favourite_customers;
 
-class adminData  {
-    var $revenues = array();
-    var $increasing_amount = array();
-    var $decreasing_amount = array();
-    var $best_sellers;
-    var $favourite_customers;
-
-    function __construct($revenue, $increasing_amount, $decreasing_amount, $best_sellers, $favourite_customers) {
+    public function __construct($revenue, $increasing_amount, $decreasing_amount, $best_sellers, $favourite_customers)
+    {
         $this->revenues = $revenue;
         $this->increasing_amount = $increasing_amount;
         $this->decreasing_amount = $decreasing_amount;
         $this->best_sellers = $best_sellers;
         $this->favourite_customers = $favourite_customers;
-      }
+        // $this->increasing = $increasing;
+    }
 }
 
 class Admin extends VanillaModel
 {
-    var $abstract = true;
+    public $abstract = true;
 
-    function getBestSeller() {
+    public function getBestSeller()
+    {
         $best_sellers_query = "SELECT
         *
     FROM
@@ -45,14 +48,14 @@ class Admin extends VanillaModel
         ON
             products.product_id = a.product_id limit 5";
 
-
         $best_sellers = $this->custom($best_sellers_query);
         // console_log($best_sellers);
         return $best_sellers;
 
     }
 
-    function getFavouriteCustomers() {
+    public function getFavouriteCustomers()
+    {
         $query = "SELECT
         *
         from
@@ -76,13 +79,14 @@ class Admin extends VanillaModel
                 SUM(oi.unit_price * oi.quantity)
             DESC
             LIMIT 10) as favo_customer";
-    $cust = $this->custom($query);
-    // console_log($best_sellers);
-    return $cust;
+        $cust = $this->custom($query);
+        // console_log($best_sellers);
+        return $cust;
 
     }
 
-    function getRevenue() {
+    public function getRevenue()
+    {
         $query_week = "SELECT
         week_revenue
     FROM
@@ -137,15 +141,15 @@ class Admin extends VanillaModel
                 TIMESTAMPDIFF(MONTH, orders.created_at, NOW()) <= 1)
         ) AS month_report";
 
-
         $day_rev = $this->custom($query_day);
         $month_rev = $this->custom($query_month);
         $week_rev = $this->custom($query_week);
         return [$day_rev[0]['Day_report']['day_revenue'], $week_rev[0]['Week_report']['week_revenue'], $month_rev[0]['Month_report']['month_revenue']];
     }
 
-    function getIncreasing() {
-        $query_prev_week = "SELECT
+    public function getPrevRevenue()
+    {
+        $query_week = "SELECT
         week_revenue
     FROM
         (
@@ -160,10 +164,10 @@ class Admin extends VanillaModel
             FROM
                 orders
             WHERE
-                TIMESTAMPDIFF(DAY, orders.created_at, NOW()) <= 7)
+                TIMESTAMPDIFF(DAY, orders.created_at, NOW()) <= 14) AND TIMESTAMPDIFF(DAY, orders.created_at, NOW()) >7 )
         ) AS week_report";
 
-        $query_prev_day = "SELECT
+        $query_day = "SELECT
         day_revenue
     FROM
         (
@@ -178,10 +182,10 @@ class Admin extends VanillaModel
             FROM
                 orders
             WHERE
-                TIMESTAMPDIFF(DAY, orders.created_at, NOW()) <= 1)
+                TIMESTAMPDIFF(DAY, orders.created_at, NOW()) > 1) AND TIMESTAMPDIFF(DAY, orders.created_at, NOW()) <= 2)
         ) AS day_report";
 
-        $query_prev_month = "SELECT
+        $query_month = "SELECT
         month_revenue
     FROM
         (
@@ -196,17 +200,65 @@ class Admin extends VanillaModel
             FROM
                 orders
             WHERE
-                TIMESTAMPDIFF(MONTH, orders.created_at, NOW()) <= 2 AND TIMESTAMPDIFF(MONTH, orders.created_at, NOW()) >=1
+                TIMESTAMPDIFF(MONTH, orders.created_at, NOW()) > 1) AND TIMESTAMPDIFF(MONTH, orders.created_at, NOW()) <= 2)
         ) AS month_report";
+
+        $day_rev = $this->custom($query_day);
+        if (!$day_rev) {
+            $day_rev = 0;
+        }
+        else $day_rev = $day_rev[0]['Day_report']['day_revenue'];
+
+        $week_rev = $this->custom($query_week);
+        if (!$week_rev) {
+            $week_rev = 0;
+        }
+        else $week_rev = $week_rev[0]['Week_report']['week_revenue'];
+
+        $month_rev = $this->custom($query_month);
+        if (!$month_rev) {
+            $month_rev = 0;
+        }
+        else $month_rev = $month_rev[0]['Month_report']['month_revenue'];
+
+        return [$day_rev, $week_rev, $month_rev];
+
+        // return [$day_rev[0]['Day_report']['day_revenue']?$day_rev[0]['Day_report']['day_revenue']: 0, $week_rev[0]['Week_report']['week_revenue']? $week_rev[0]['Week_report']['week_revenue'] :0 , $month_rev[0]['Month_report']['month_revenue']? $month_rev[0]['Month_report']['month_revenue']: 0];
+    }
+
+    public function getDifference()
+    {
+        $reves = $this->getRevenue();
+        $prev_reves = $this->getPrevRevenue();
+        $retval_inc = array();
+        $retval_dec = array();
+        foreach ($reves as $key => $rev) {
+            $diff = $rev - $prev_reves[$key];
+            if ($diff > 0) {
+                if ($prev_reves[$key] == 0) {
+                    $retval_inc[$key] = 100;
+                    $retval_dec[$key] = 0;
+                } else {
+                    $retval_inc[$key] = ($diff) / $prev_reves[$key] * 100;
+                    $retval_dec[$key] = 0;
+                }
+            }
+            else {
+                $retval_inc[$key] = 0;
+                $retval_dec[$key] = ($diff) / $prev_reves[$key] * 100;
+            }
+        }
+
+        return [$retval_inc, $retval_dec];
 
     }
 
-    function getData() {
+    public function getData()
+    {
         $revenues_ = $this->getRevenue();
-        $increasing_amount_ = [7, 8, 9];
-        $decreasing_amount_ = [0, 0, 0];
         $best_sellers_ = $this->getBestSeller();
         $favourite_customers_ = $this->getFavouriteCustomers();
-        return new adminData($revenues_, $increasing_amount_, $decreasing_amount_, $best_sellers_, $favourite_customers_);
+        $difference = $this->getDifference();
+        return new adminData($revenues_, $difference[0], $difference[1], $best_sellers_, $favourite_customers_);
     }
 }
