@@ -8,15 +8,18 @@ class AdminController extends VanillaController
 
     function index()
     {
-          $this->doNotRenderHeader = true;
+        $this->doNotRenderHeader = true;
 
         // $products = $this->Product->custom("SELECT `product_id`, `NAME` FROM `products`");
 
         // $this->set_template_variable('admin', );
-        $revenues = [130000000, 7890000000, 9099999999];
-        $increasing_amount = [7, 8, 9];
-        $this->set_template_variable('revenues', $revenues);
-        $this->set_template_variable('increasing_amount', $increasing_amount);
+        $admindata = $this->Admin->getData();
+        // $revenues = [130000000, 7890000000, 9099999999];
+        // $increasing_amount = [7, 8, 9];
+        // $decreasing_amount = [0, 0, 0];
+        // $this->set_template_variable('revenues', $revenues);
+        // $this->set_template_variable('increasing_amount', $increasing_amount);
+        $this->set_template_variable('admindata', $admindata);
         return true;
     }
 
