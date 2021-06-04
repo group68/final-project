@@ -159,6 +159,14 @@
     transition: background-color 0.2s, border 0.2s, color 0.2s;
   }
   
+  .btn-home {
+    padding: 5vh 10vh 5vh 10vh;
+    background-color: #F59E31;
+    border-radius: 10px;
+    border: 1px solid rgb(241, 132, 29);
+    color: white;
+    font-size: 1em;
+  }
   .btn-full:link,
   .btn-full:visited,
   input[type="submit"] {
@@ -580,6 +588,7 @@
   *:focus {
     outline: none;
   }
+  
   
   /*------------------------------------*/
   /* FOOTER */
