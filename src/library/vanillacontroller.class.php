@@ -2,25 +2,27 @@
 
 class VanillaController
 {
-    protected $_controller;
+    protected $_controllerName;
     protected $_action;
     protected $_template;
+    protected $_queryString;
 
     public $doNotRenderHeader;
     public $render;
 
-    function __construct($controller, $action)
+    function __construct($controllerName, $action, $queryString)
     {
         global $inflect;
 
-        $this->_controller = ucfirst($controller);
+        $this->_controllerName = $controllerName;
         $this->_action = $action;
+        $this->_queryString = $queryString;
 
-        $model = ucfirst($inflect->singularize($controller));
+        $modelClassName = ucfirst($inflect->singularize($controllerName));
         $this->doNotRenderHeader = false;
         $this->render = true;
-        $this->$model = new $model;
-        $this->_template = new Template($controller, $action);
+        $this->$modelClassName = new $modelClassName;
+        $this->_template = new Template($controllerName, $action);
     }
 
     function set_template_variable($name, $value)
@@ -28,10 +30,36 @@ class VanillaController
         $this->_template->set($name, $value);
     }
 
-    function __destruct()
+    function renderView()
     {
         if ($this->render) {
             $this->_template->render($this->doNotRenderHeader);
         }
+    }
+
+    function renderError()
+    {
+        $this->_template->renderError($this->doNotRenderHeader);
+    }
+
+    protected function beforeAction()
+    {
+    }
+
+    protected function afterAction()
+    {
+    }
+
+    function execute()
+    {
+        $this->beforeAction();
+
+        if (call_user_func_array(array($this, $this->_action), $this->_queryString)) {
+            $this->renderView();
+        } else {
+            $this->renderError();
+        }
+
+        $this->afterAction();
     }
 }

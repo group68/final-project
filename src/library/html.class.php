@@ -57,7 +57,7 @@ class HTML
 
     function includeCss($fileName)
     {
-        $data = "<style href=\"/css/{$fileName}.css\"></script>";
+        $data = "<link rel=\"stylesheet\" href=\"/css/{$fileName}.css\"></link>";
         return $data;
     }
 }
