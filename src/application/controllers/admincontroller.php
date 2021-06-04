@@ -8,6 +8,8 @@ class AdminController extends VanillaController
 
     function index()
     {
+          $this->doNotRenderHeader = true;
+
         // $products = $this->Product->custom("SELECT `product_id`, `NAME` FROM `products`");
 
         // $this->set_template_variable('admin', );
