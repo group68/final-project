@@ -10,7 +10,9 @@ class AdminController extends VanillaController
     {
         // $products = $this->Product->custom("SELECT `product_id`, `NAME` FROM `products`");
 
-        $this->set_template_variable('admin');
+        // $this->set_template_variable('admin', );
+        
+        return true;
     }
 
     function view($id = null)
