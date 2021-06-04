@@ -2,8 +2,12 @@
 
 class ProductsApiController extends ApiController
 {
-    function x()
+    function search()
     {
-        return array(1, 2, 3);
+        if (!isset($this->_requestData['q'])) {
+            return false;
+        }
+
+        return [1, 2, 3, $this->_requestData['q']];
     }
 }
