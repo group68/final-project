@@ -3,7 +3,7 @@ CREATE DATABASE restaurant;
 -- Grant permission
 GRANT ALL PRIVILEGES ON restaurant.* TO 'mysql_client'@'%';
 
-USE restaurantt;
+USE restaurant;
 
 -- DUMP OF TABLE CUSTOMERS
 DROP TABLE if EXISTS `customers`;
