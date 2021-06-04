@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fast-food restaurant</title>
-
+    <script src="https://use.fontawesome.com/0e4620ce6a.js"></script>
     <?php echo $html->includeCss("common"); ?>
     <?php echo $html->includeCss("header"); ?>
     <?php echo $html->includeCss("footer"); ?>
@@ -15,6 +15,12 @@
 </head>
 
 <body>
+    <?php
+    if (isset($_SESSION['item_count']))
+        $count_txt = $_SESSION['item_count'];
+    else
+        $count_txt = 'CART';
+    ?>
     <div id="navbar">
         <nav class="navbar-container container">
             <a href="/" class="home-link">
@@ -28,10 +34,10 @@
             </button>
             <div class="navbar-menu">
                 <ul class="navbar-links">
-                    <li class="navbar-item"><a class="navbar-link_customer" href="">Home</a></li>
-                    <li class="navbar-item"><a class="navbar-link_customer" href="">Menu</a></li>
-                    <li class="navbar-item"><a class="navbar-link_customer" href="">Order</a></li>
+                    <li class="navbar-item"><a class="navbar-link_customer" href="/">Home</a></li>
+                    <li class="navbar-item"><a class="navbar-link_customer" href="/">Menu</a></li>
                     <li class="navbar-item"><a class="navbar-link_customer" href="">Login</a></li>
+                    <li class="navbar-item"><a class="navbar-link_customer" href="/products/order"><i class="fas fa-shopping-cart icon-2x"></i><?php echo $count_txt ?></a></li>
                 </ul>
             </div>
         </nav>

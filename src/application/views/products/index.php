@@ -6,10 +6,12 @@
 
     <?php foreach ($categories as $key => $value) : ?>
         <div class="card-container">
-            <div class="span-1-of-3 box card-home" style="background: radial-gradient(#de7b26, #ffb42c);">
-                <img src="<?php echo $imgs[$key] ?>" alt="<?php echo $key ?>" />
-                <a style="color: white; font-size:2em;" href="<?php echo "/products/category/{$value}" ?>"><?php echo $key ?></a>
-            </div>
+            <a style="color: white; font-size:2em;" href="<?php echo "/products/category/{$value}" ?>">
+                <div class="span-1-of-3 box card-home card-5">
+                    <img src="<?php echo $imgs[$key] ?>" alt="<?php echo $key ?>" />
+                    <p><?php echo $key ?></p>
+                </div>
+            </a>
         </div>
     <?php endforeach ?>
 </div>
