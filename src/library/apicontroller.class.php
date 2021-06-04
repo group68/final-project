@@ -6,6 +6,8 @@ class ApiController
     protected $_action;
     protected $_queryString;
 
+    protected $_requestData;
+
     function __construct($controllerName, $action, $queryString)
     {
         global $inflect;
@@ -17,7 +19,15 @@ class ApiController
         $modelClassName = ucfirst($inflect->singularize($controllerName));
         $this->$modelClassName = new $modelClassName;
 
-        header("Content-Type: application/json; charset=UTF-8");
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->_requestData = $_POST;
+        } else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $requestUri = $_SERVER['REQUEST_URI'];
+            $queryString = parse_url($requestUri, PHP_URL_QUERY);
+            parse_str($queryString, $this->_requestData);
+        } else {
+            $this->_requestData = array();
+        }
     }
 
     protected function beforeAction()
@@ -34,9 +44,10 @@ class ApiController
 
         $result = call_user_func_array(array($this, $this->_action), $this->_queryString);
         if ($result) {
+            header("Content-Type: application/json; charset=UTF-8");
             echo json_encode($result);
         } else {
-            echo "{}";
+            http_response_code(400);
         }
 
         $this->afterAction();
