@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fast-food restaurant</title>
 
+    <?php echo $html->includeCss("common"); ?>
     <?php echo $html->includeCss("header"); ?>
     <?php echo $html->includeCss("footer"); ?>
     <?php echo $html->includeCss("home"); ?>
@@ -14,7 +15,7 @@
 </head>
 
 <body>
-    <header id="navbar">
+    <div id="navbar">
         <nav class="navbar-container container">
             <a href="/" class="home-link">
                 <div class="navbar-logo"></div>
@@ -27,11 +28,11 @@
             </button>
             <div class="navbar-menu">
                 <ul class="navbar-links">
-                    <li class="navbar-item"><a class="navbar-link" href="">Home</a></li>
-                    <li class="navbar-item"><a class="navbar-link" href="">Menu</a></li>
-                    <li class="navbar-item"><a class="navbar-link" href="">Order</a></li>
-                    <li class="navbar-item"><a class="navbar-link" href="">Login</a></li>
+                    <li class="navbar-item"><a class="navbar-link_customer" href="">Home</a></li>
+                    <li class="navbar-item"><a class="navbar-link_customer" href="">Menu</a></li>
+                    <li class="navbar-item"><a class="navbar-link_customer" href="">Order</a></li>
+                    <li class="navbar-item"><a class="navbar-link_customer" href="">Login</a></li>
                 </ul>
             </div>
         </nav>
-    </header>
+    </div>
