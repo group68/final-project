@@ -8,12 +8,16 @@ class EmployeesController extends VanillaController {
         session_start();
 
         // Check if the user is logged in, otherwise redirect to login page
-        if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
-            if (isset($_SESSION["isemployee"]) || $_SESSION["isemployee"] === true) {
-                header("location: /employees/index.php");
+        if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
+            if (isset($_SESSION["isEmployee"]) && $_SESSION["isEmployee"] === true) {
+
+                // header("location: /employees/index.php");
+                // exit;
+                echo "is employee!\n";
+            } else {
+                header("location: /");
                 exit;
             }
-            header("location: /products/index.php");
         }
         // Define variables and initialize with empty values
         $username = $password = "";
@@ -25,6 +29,7 @@ class EmployeesController extends VanillaController {
             // Check if username is empty
             if (empty(trim($_POST["username"]))) {
                 $username_err = "Please enter username.";
+                echo $username_err;
             } else {
                 $username = trim($_POST["username"]);
             }
@@ -32,13 +37,29 @@ class EmployeesController extends VanillaController {
             // Check if password is empty
             if (empty(trim($_POST["password"]))) {
                 $password_err = "Please enter your password.";
+                echo $password_err;
             } else {
                 $password = trim($_POST["password"]);
             }
+
+            if (empty($username_err) && empty($password_err)) {
+                //login
+                $username = $this->Employee->sanitize($username);
+                $password = $this->Employee->sanitize($password);
+                $sql = "SELECT * FROM `employees` WHERE `username` = '{$username}' AND `password` = '{$password}'";
+                $query = $this->Employee->custom($sql);
+                if (!$query) {
+                    $login_err = "Invalid username or password.";
+                    echo "$login_err";
+                } else {
+                    $_SESSION["loggedIn"] = true;
+                    $_SESSION["isEmployee"] = true;
+                    $_SESSION["id"] = $query[0];
+                    $_SESSION["username"] = $username;
+                }
+            }
         }
-        if (empty($username_err) && empty($password_err)) {
-            //login
-        }
+        return true;
     }
 
     function index() {

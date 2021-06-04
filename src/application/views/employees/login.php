@@ -7,5 +7,5 @@
         Password: <input text type="password" size="30" maxlength="30" name="password"><br>
         <br><input type="submit" value="Click To Submit">
         <input type="reset" value="Reset">
-    </form>>
+    </form>
 </div>
