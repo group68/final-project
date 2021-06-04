@@ -37,9 +37,9 @@
 
 
                 <ul class="main-nav js--main-nav">
-                    <li><a href="#features">Statistic</a></li>
-                    <li><a href="#features">Customers</a></li>
-                    <li><a href="#features">Products</a></li>
+                    <li><a href="#revenue-session">Statistic</a></li>
+                    <li><a href="#customer-sesion">Customers</a></li>
+                    <li><a href="#best-sellers-session">Products</a></li>
                     <li class="text-primary"><a href="#features"><i class="fas fa-user-circle icon-small"></i>Hi, Dung</a></li>
                     <li><a href="#plans"></a></li>
                 </ul>
@@ -47,7 +47,7 @@
             </div>
         </nav>
 
-        <div class="row best-sellers">
+        <div id="best-sellers-session" class="row best-sellers">
             <h2>BEST-SELLERS</h2>
             <p class="long-copy">
                 Let see our best-sellers this week
@@ -82,7 +82,7 @@
 
 
 
-    <section class="section-features  js--section-features" id="features">
+    <section class="section-features js--section-features" id="revenue-session">
         <div class="row">
             <h2>REVENUE STATISTICS</h2>
             <p class="long-copy">
@@ -96,7 +96,7 @@
                 <?php
                 echo "<p class='money-amount'>{$admindata->revenues[0]} </p>";
                 echo "<div><i class='fas fa-level-up-alt inline-element '></i> {$admindata->increasing_amount[0]} %";
-                echo "<i class='fas fa-level-down-alt inline-element ml-15'></i> {$admindata->increasing_amount[1]} %</div>";
+                echo "<i class='fas fa-level-down-alt inline-element ml-15'></i> {$admindata->decreasing_amount[1]} %</div>";
                 ?>
             </div>
             <div class="col span-1-of-3 box card card-2">
@@ -120,7 +120,7 @@
         </div>
     </section>
 
-    <section class="section-testimonials js--section-features p-base" id="features">
+    <section class="section-testimonials js--section-features p-base" id="customer-sesion">
         <div class="row">
             <h2>FAVOURITE CUSTOMERS</h2>
             <p class="long-copy">
@@ -148,6 +148,30 @@
         </table>
 
     </section>
+	<footer>
+            <div class="row footer">
+                <div class="col span-1-of-2">
+                    <ul class="footer-nav">
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">iOS App</a></li>
+                        <li><a href="#">Android App</a></li>
+                    </ul>
+                </div>
+                <div class="col span-1-of-2">
+                    <ul class="social-links">
+                        <li><a href="#"><i class="fab fa-twitter-square"></i></a></li>
+                        <li><a href="#"><i class="fab fa-google-plus-square"></i></a></li>
+                        <li><a href="#"><i class="fab fa-facebook-square"></i></a></li>
+                        <li><a href="#"><i class="fab fa-instagram-square"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <p>
+                    Copyright &copy; 2021 by Group-68. All rights reserved.
+                </p>
+            </div>            
+        </footer>
 </body>
 
 </html>
