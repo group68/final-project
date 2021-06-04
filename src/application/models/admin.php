@@ -81,8 +81,128 @@ class Admin extends VanillaModel
     return $cust;
 
     }
+
+    function getRevenue() {
+        $query_week = "SELECT
+        week_revenue
+    FROM
+        (
+        SELECT
+            SUM(unit_price * quantity) AS week_revenue
+        FROM
+            order_items
+        WHERE
+            order_id IN(
+            SELECT
+                order_id
+            FROM
+                orders
+            WHERE
+                TIMESTAMPDIFF(DAY, orders.created_at, NOW()) <= 7)
+        ) AS week_report";
+
+        $query_day = "SELECT
+        day_revenue
+    FROM
+        (
+        SELECT
+            SUM(unit_price * quantity) AS day_revenue
+        FROM
+            order_items
+        WHERE
+            order_id IN(
+            SELECT
+                order_id
+            FROM
+                orders
+            WHERE
+                TIMESTAMPDIFF(DAY, orders.created_at, NOW()) <= 1)
+        ) AS day_report";
+
+        $query_month = "SELECT
+        month_revenue
+    FROM
+        (
+        SELECT
+            SUM(unit_price * quantity) AS month_revenue
+        FROM
+            order_items
+        WHERE
+            order_id IN(
+            SELECT
+                order_id
+            FROM
+                orders
+            WHERE
+                TIMESTAMPDIFF(MONTH, orders.created_at, NOW()) <= 1)
+        ) AS month_report";
+
+
+        $day_rev = $this->custom($query_day);
+        $month_rev = $this->custom($query_month);
+        $week_rev = $this->custom($query_week);
+        return [$day_rev[0]['Day_report']['day_revenue'], $week_rev[0]['Week_report']['week_revenue'], $month_rev[0]['Month_report']['month_revenue']];
+    }
+
+    function getIncreasing() {
+        $query_prev_week = "SELECT
+        week_revenue
+    FROM
+        (
+        SELECT
+            SUM(unit_price * quantity) AS week_revenue
+        FROM
+            order_items
+        WHERE
+            order_id IN(
+            SELECT
+                order_id
+            FROM
+                orders
+            WHERE
+                TIMESTAMPDIFF(DAY, orders.created_at, NOW()) <= 7)
+        ) AS week_report";
+
+        $query_prev_day = "SELECT
+        day_revenue
+    FROM
+        (
+        SELECT
+            SUM(unit_price * quantity) AS day_revenue
+        FROM
+            order_items
+        WHERE
+            order_id IN(
+            SELECT
+                order_id
+            FROM
+                orders
+            WHERE
+                TIMESTAMPDIFF(DAY, orders.created_at, NOW()) <= 1)
+        ) AS day_report";
+
+        $query_prev_month = "SELECT
+        month_revenue
+    FROM
+        (
+        SELECT
+            SUM(unit_price * quantity) AS month_revenue
+        FROM
+            order_items
+        WHERE
+            order_id IN(
+            SELECT
+                order_id
+            FROM
+                orders
+            WHERE
+                TIMESTAMPDIFF(MONTH, orders.created_at, NOW()) <= 2 AND TIMESTAMPDIFF(MONTH, orders.created_at, NOW()) >=1
+        ) AS month_report";
+
+    }
+
     function getData() {
-        $revenues_ = [130000000, 7890000000, 9099999999];
+        $revenues_ = $this->getRevenue();
         $increasing_amount_ = [7, 8, 9];
         $decreasing_amount_ = [0, 0, 0];
         $best_sellers_ = $this->getBestSeller();

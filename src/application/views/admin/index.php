@@ -72,7 +72,6 @@ function console_log($output, $with_script_tags = true) {
 			<?php
 				if($key % 3 == 2) echo"</div>"; ?>
     		<?php endforeach ?>
-
 				</div>
             </div>
         </header>
@@ -117,8 +116,6 @@ echo "<i class='fas fa-level-down-alt inline-element ml-15'></i> {$admindata->de
                 </div>
             </div>
         </section>
-
-
 
 		<section class="section-testimonials js--section-features p-base" id="features">
 		<div class="row">
