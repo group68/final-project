@@ -632,7 +632,7 @@ CREATE TABLE `orders`(
     `customer_id` INT UNSIGNED NOT NULL,
     `created_at` DATETIME NOT NULL DEFAULT NOW(),
     `employee_id` INT UNSIGNED NOT NULL,
-    `status` INT UNSIGNED NOT NULL DEFAULT 0,
+    `status` INT UNSIGNED NOT NULL DEFAULT 0, --0: unprocessed, 1: accepted, 2: rejected
     PRIMARY KEY(`order_id`),
     KEY `customer_id`(`customer_id`),
     KEY `employee_id`(`employee_id`),

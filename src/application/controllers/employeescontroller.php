@@ -54,7 +54,7 @@ class EmployeesController extends VanillaController {
                 } else {
                     $_SESSION["loggedIn"] = true;
                     $_SESSION["isEmployee"] = true;
-                    $_SESSION["id"] = $query[0];
+                    $_SESSION["id"] = $query[0]['Employee']['employee_id'];
                     $_SESSION["username"] = $username;
                 }
             }
@@ -71,6 +71,42 @@ class EmployeesController extends VanillaController {
         $this->set_template_variable('ingredients', $ingredients);
     }
 
+    function processOrder() {
+        session_start();
+
+        // Check if the user is logged in, otherwise redirect to login page
+        if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
+            if (isset($_SESSION["isEmployee"]) && $_SESSION["isEmployee"] === true) {
+
+                // header("location: /employees/index.php");
+                // exit;
+                echo "is employee!\n";
+            } else {
+                header("location: /");
+                exit;
+            }
+        }
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if (isset($_POST['orders'])) {
+                $orders = $_POST['orders'];
+                foreach ($orders as $order) {
+                    print $order;
+                    $update = $this->Employee->custom("UPDATE `orders` SET `status` = 1 WHERE `order_id` = $order");
+                    if ($update) {
+                        echo 'Order processing completed!\n';
+                    } else {
+                        echo 'Order processing failed\n';
+                    }
+                }
+            }
+        }
+        $orders = $this->Employee->custom("SELECT * FROM `orders` WHERE `status` = 0 ");
+
+        $this->set_template_variable('orders', $orders);
+
+        return true;
+    }
+
     function view($id = null) {
     }
 
@@ -78,3 +114,4 @@ class EmployeesController extends VanillaController {
     function afterAction() {
     }
 }
+
