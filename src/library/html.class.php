@@ -55,6 +55,12 @@ class HTML
         return $data;
     }
 
+    function includeJsDeffered($fileName)
+    {
+        $data = "<script src=\"/js/{$fileName}.js\" defer></script>";
+        return $data;
+    }
+
     function includeCss($fileName)
     {
         $data = "<link rel=\"stylesheet\" href=\"/css/{$fileName}.css\"></link>";

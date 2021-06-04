@@ -44,6 +44,15 @@ CREATE TABLE `products`(
     `price` DOUBLE,
     `category` INT
 )ENGINE = InnoDB;
+
+-- category
+-- 1 - Chicken
+-- 2 - Dessert
+-- 3 - drinks
+-- 4 - rice disks
+-- 5- light food
+-- 6 - burger
+
 LOCK TABLES `products` WRITE;
 INSERT INTO `products`(`product_id`, `name`, `image_url`, `price`, `category`)
 VALUES

@@ -1,5 +1,5 @@
-<div>
-    <img src="<?php echo $product['Product']['image_url']?>" alt="Product image"/>
+<div class="content">
+    <img src="<?php echo $product['Product']['image_url'] ?>" alt="Product image" />
     <h2><strong><?php echo $product['Product']['NAME'] ?></strong>
 </div>
 
