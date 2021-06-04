@@ -86,7 +86,7 @@ body {
 }
 
 .navbar-logo {
-    background-image: url("../assets/images/fflogo.png");
+    background-image: url("/img/fflogo.png");
     /* background-color: #cccccc; */
     background-size: cover;
     border-radius: 50%;
