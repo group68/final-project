@@ -20,7 +20,6 @@ class ProductsController extends VanillaController
         if (count($products) > 0) {
             $this->set_template_variable('product', $products[0]);
         } else {
-            
         }
     }
 

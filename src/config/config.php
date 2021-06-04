@@ -2,7 +2,7 @@
 
 /** Configuration Variables **/
 
-define ('DEVELOPMENT_ENVIRONMENT',true);
+define('DEVELOPMENT_ENVIRONMENT', true);
 
 
 define('DB_NAME', 'restaurant');

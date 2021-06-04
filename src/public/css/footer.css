@@ -1,0 +1,7 @@
+#footer
+{
+    height: var(--footer-height);
+    background-color: var(--navbar-bg-color);
+    color: var(--navbar-text-color);
+    box-shadow: 0 2px 4px rgba(30, 107, 207, 0.15);
+}
