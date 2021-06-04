@@ -1,6 +1,6 @@
 <?php
 
-class ProductsController extends VanillaController
+class AdminController extends VanillaController
 {
     function beforeAction()
     {
@@ -8,9 +8,9 @@ class ProductsController extends VanillaController
 
     function index()
     {
-        $products = $this->Product->custom("SELECT `product_id`, `NAME` FROM `products`");
+        // $products = $this->Product->custom("SELECT `product_id`, `NAME` FROM `products`");
 
-        $this->set_template_variable('products', $products);
+        $this->set_template_variable('admin');
     }
 
     function view($id = null)
@@ -23,6 +23,7 @@ class ProductsController extends VanillaController
             
         }
     }
+   
     function afterAction()
     {
     }
