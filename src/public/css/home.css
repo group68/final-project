@@ -19,6 +19,21 @@
     text-align: center;
 }
 
+.txt-input 
+{
+    padding: 2vh;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid rgb(241, 132, 29);
+    color: slategray;
+    font-size: 1em;
+}
+
+.card-5
+{
+    background: radial-gradient(#de7b26, #ffb42c);
+}
+
 @media screen and (min-width: 300px) {
     #thumb-img
     {
