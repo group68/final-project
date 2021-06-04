@@ -27,12 +27,6 @@ body {
     margin-right: auto;
 }
 
-.content
-{
-    padding-top: var(--navbar-height) - 5px;
-    padding-bottom: var(--footer-height);
-}
-
 #navbar {
     position: fixed;
     height: var(--navbar-height);

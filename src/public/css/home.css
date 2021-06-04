@@ -1,7 +1,42 @@
 #thumb-img
 {
-    --thumb-img-height: 530px;
-    height: var(--thumb-img-height);
     width: 100%;
+    padding-top: 8%;
     object-fit: contain;
+}
+
+@media screen and (min-width: 300px) {
+    #thumb-img
+    {
+        width: 100%;
+        padding-top: 10%;
+        object-fit: contain;
+    }
+}
+
+@media screen and (min-width: 500px) {
+    #thumb-img
+    {
+        width: 100%;
+        padding-top: 7%;
+        object-fit: contain;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    #thumb-img
+    {
+        width: 100%;
+        padding-top: 5%;
+        object-fit: contain;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    #thumb-img
+    {
+        width: 100%;
+        padding-top: 2%;
+        object-fit: contain;
+    }
 }
