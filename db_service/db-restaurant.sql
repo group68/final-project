@@ -1,4 +1,3 @@
-
 CREATE DATABASE restaurant;
 -- Grant permission
 GRANT ALL PRIVILEGES ON restaurant.* TO 'mysql_client'@'%';
@@ -630,9 +629,9 @@ DROP TABLE IF EXISTS
 CREATE TABLE `orders`(
     `order_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `customer_id` INT UNSIGNED NOT NULL,
-    `created_at` DATETIME NOT NULL DEFAULT NOW(),
+    `created_at` DATETIME NOT NULL,
     `employee_id` INT UNSIGNED NOT NULL,
-    `status` INT UNSIGNED NOT NULL DEFAULT 0,
+    `status` INT UNSIGNED NOT NULL, --0: not processed 1:accepted 2:rejected
     PRIMARY KEY(`order_id`),
     KEY `customer_id`(`customer_id`),
     KEY `employee_id`(`employee_id`),
@@ -646,53 +645,23 @@ LOCK TABLE `orders` WRITE;
 INSERT INTO `orders`(
     `order_id`,
     `customer_id`,
+    `created_at`,
     `employee_id`,
     `status`
 )
 VALUES(
     0,
     '1',
+    '2021-05-22 00:28:37',
     '2',
     '0'
 ),(
     0,
     '2',
+    '2021-05-22 00:28:37',
     '2',
-    '0'
-), (
-    0,
-    '3',
-    '1',
-    '0'
-),  (
-    0,
-    '1',
-    '1',
-    '0'
-),  (
-    0,
-    '2',
-    '1',
-    '0'
-),  (
-    0,
-    '3',
-    '1',
-    '0'
-),
- (
-    0,
-    '4',
-    '1',
-    '0'
-),
- (
-    0,
-    '5',
-    '1',
     '0'
 )
-
 ON DUPLICATE KEY
 UPDATE
     order_id = order_id + 1;
@@ -709,13 +678,13 @@ CREATE TABLE `order_items`(
     `product_id` INT UNSIGNED NOT NULL,
     `order_id` INT UNSIGNED NOT NULL,
     `quantity` INT UNSIGNED NOT NULL,
-    `unit_price` DOUBLE NOT NULL DEFAULT 0,
+    `unit_price` DOUBLE NOT NULL,
     CONSTRAINT fk_1 FOREIGN KEY(`product_id`) REFERENCES `products`(`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT fk_2 FOREIGN KEY(`order_id`) REFERENCES `orders`(`order_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) AUTO_INCREMENT = 1; 
 LOCK TABLE `order_items` WRITE;
 INSERT INTO `order_items`
-VALUES(0, 1, 1, 2, 50000),(0, 2, 1, 2, 50000),(0, 3, 1, 2, 50000), (0, 14, 1, 2, 50000), (0, 14, 2, 2, 50000), (0, 14, 3, 2, 50000), (0, 10, 1, 2, 50000), (0, 12, 1, 2, 50000), (0, 15, 2, 2, 50000), (0, 15, 3, 2, 50000), (0, 16, 2, 2, 50000), (0, 16, 3, 2, 50000), (0, 16, 1, 2, 50000), (0, 16, 4, 2, 50000), (0, 16, 5, 2, 50000)
+VALUES(0, 1, 1, 2, 50000),(0, 2, 1, 2, 50000),(0, 3, 1, 2, 50000)
 ON DUPLICATE KEY
 UPDATE
     id = id + 1;

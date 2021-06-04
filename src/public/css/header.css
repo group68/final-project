@@ -14,12 +14,9 @@
 }
 
 body {
+    height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.6;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
 }
 
 .container {
@@ -52,20 +49,8 @@ body {
     width: 100%;
 }
 
-a::after {
-    position: absolute;
-    color: white;
-    top: 25px;
-    left: 0;
-    content: none;
-    border-bottom: none;
-    width: 0%;
-    height: 3px;
-    background-color: rgba(255, 255, 255, 0.6);
-    transition: all 0.5s;
-  }
 .home-link,
-.navbar-link_customer {
+.navbar-link {
     color: var(--navbar-text-color);
     transition: color 0.2s ease-in-out;
     text-decoration: none;

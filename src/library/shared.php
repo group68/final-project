@@ -46,6 +46,17 @@ function unregisterGlobals()
     }
 }
 
+/** Secondary Call Function **/
+
+function performAction($controller, $action, $queryString = null, $render = 0)
+{
+
+    $controllerName = ucfirst($controller) . 'Controller';
+    $dispatch = new $controllerName($controller, $action);
+    $dispatch->render = $render;
+    return call_user_func_array(array($dispatch, $action), $queryString);
+}
+
 /** Routing **/
 
 function routeURL($url)
@@ -68,58 +79,30 @@ function callHook()
     global $url;
     global $default;
 
-    // $queryString = array();
+    $queryString = array();
 
-    // if (!isset($url)) {
-    //     $controllerName = $default['controller'];
-    //     $action = $default['action'];
-    // } else {
-    //     $url = routeURL($url);
-    //     $urlArray = explode("/", $url);
-
-    //     if ($urlArray[0] === 'api') {
-    //         $isApi = true;
-    //         array_shift($urlArray);
-    //     }
-
-    //     // Try to extract controller name
-    //     if (isset($urlArray[0])) {
-    //         $controllerName = $urlArray[0];
-
-    //         array_shift($urlArray);
-
-    //         // Try to extract action
-    //         if (isset($urlArray[0])) {
-    //             $action = $urlArray[0];
-
-    //             array_shift($urlArray);
-    //         } else {
-    //             $action = 'index'; // Default Action
-    //         }
-    //         $queryString = $urlArray;
-    //     } else {
-    //         exitWithError();
-    //     }
-    // }
-    $urlComponents = parseUrl($url, $default);
-    if (!$urlComponents) {
-        exitWithError();
-    }
-
-    $controllerName = $urlComponents['controllerName'];
-    $action = $urlComponents['action'];
-    $queryString = $urlComponents['queryString'];
-    $isApi = $urlComponents['isApi'];
-
-    if (!checkControllerName($controllerName, $isApi)) {
-        exitWithError();
-    }
-
-    if ($isApi) {
-        $controllerClassName = ucfirst($controllerName) . 'ApiController';
+    if (!isset($url)) {
+        $controllerName = $default['controller'];
+        $action = $default['action'];
     } else {
-        $controllerClassName = ucfirst($controllerName) . 'Controller';
+        $url = routeURL($url);
+        $urlArray = explode("/", $url);
+        $controllerName = $urlArray[0];
+        array_shift($urlArray);
+        if (isset($urlArray[0])) {
+            $action = $urlArray[0];
+            array_shift($urlArray);
+        } else {
+            $action = 'index'; // Default Action
+        }
+        $queryString = $urlArray;
     }
+
+    if (!checkControllerName($controllerName)) {
+        exitWithError();
+    }
+
+    $controllerClassName = ucfirst($controllerName) . 'Controller';
 
     if (method_exists($controllerClassName, $action)) {
         $controller = new $controllerClassName($controllerName, $action, $queryString);
@@ -129,70 +112,9 @@ function callHook()
     }
 }
 
-function parseUrl($url, array $default)
+function checkControllerName($controllerName)
 {
-    $components = array(
-        'controllerName' => $default['controller'],
-        'action' => $default['action'],
-        'queryString' => array(),
-        'isApi' => false
-    );
-
-    if (!isset($url)) {
-        return $components;
-    }
-
-    $url = routeURL($url);
-    $urlArray = explode("/", $url);
-
-    if ($urlArray[0] === 'api') {
-        $components['isApi'] = true;
-        array_shift($urlArray);
-
-        // Check for empty controller name
-        if (!isset($urlArray[0])) {
-            return false;
-        }
-
-        $components['controllerName'] = $urlArray[0];
-        array_shift($urlArray);
-
-        // Check for empty action
-        if (!isset($urlArray[0])) {
-            return false;
-        }
-
-        $components['action'] = $urlArray[0];
-        array_shift($urlArray);
-
-        $components['queryString'] = $urlArray;
-    } else {
-
-        // Check for controller name
-        if (isset($urlArray[0])) {
-            $components['controllerName'] = $urlArray[0];
-            array_shift($urlArray);
-
-            // Check for action
-            if (isset($urlArray[0])) {
-                $components['action'] = $urlArray[0];
-                array_shift($urlArray);
-
-                $components['queryString'] = $urlArray;
-            }
-        }
-    }
-
-    return $components;
-}
-
-function checkControllerName($controllerName, $isApi)
-{
-    if ($isApi) {
-        return file_exists(ROOT . DS . 'application' . DS . 'controllers' . DS . "{$controllerName}apicontroller" . '.php');
-    } else {
-        return file_exists(ROOT . DS . 'application' . DS . 'controllers' . DS . "{$controllerName}controller" . '.php');
-    }
+    return file_exists(ROOT . DS . 'application' . DS . 'controllers' . DS . "{$controllerName}controller" . '.php');
 }
 
 function exitWithError()
@@ -215,7 +137,7 @@ spl_autoload_register(function ($className) {
         // application/models/*.php
         require_once(ROOT . DS . 'application' . DS . 'models' . DS . strtolower($className) . '.php');
     } else {
-        exitWithError();
+        /* Error Generation Code Here */
     }
 });
 
