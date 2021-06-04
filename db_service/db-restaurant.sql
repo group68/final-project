@@ -1,3 +1,4 @@
+
 CREATE DATABASE restaurant;
 -- Grant permission
 GRANT ALL PRIVILEGES ON restaurant.* TO 'mysql_client'@'%';
