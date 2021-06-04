@@ -1,5 +1,5 @@
 <div class="content">
-    <img id='thumb-img' src="../../../public/assets/images/banner.jpg" />
+    <img id='thumb-img' src="/img/banner.jpg" />
     <div style="display: flex; justify-content: center">
         <h1 style="color: orange; font-size: 2em">MENU</h1>
     </div>
