@@ -113,9 +113,15 @@ class ProductsController extends VanillaController
 
                 case 'submit':
                     //add to database
-
-                    unset($_SESSION["cart_item"]);
-                    unset($_SESSION["item_count"]);
+                    if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] = false || (isset($_SESSION['isEmployee']) && $_SESSION['isEmployee'])) {
+                        header('Location: /customer/login');
+                        //redirect to prom user login
+                        break;
+                    } else {
+                        $this->Product->submitOrder();
+                        unset($_SESSION["cart_item"]);
+                        unset($_SESSION["item_count"]);
+                    }
                     break;
             }
         }
