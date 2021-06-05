@@ -72,9 +72,18 @@ class EmployeesController extends VanillaController {
     }
 
     function import() {
-        $ingredients = $this->Employee->custom("SELECT * FROM `ingredients`");
+        session_start();
 
-        $this->setTemplateVariable('ingredients', $ingredients);
+        if (isset($_SESSION['isEmployee']) && $_SESSION['isEmployee'] === true) {
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+            }
+            $ingredients = $this->Employee->custom("SELECT * FROM `ingredients`");
+
+            $this->setTemplateVariable('ingredients', $ingredients);
+
+            return true;
+        }
     }
 
     function processOrder() {
@@ -97,8 +106,7 @@ class EmployeesController extends VanillaController {
             if (isset($_POST['orders'])) {
                 $orders = $_POST['orders'];
                 foreach ($orders as $order) {
-                    print $order;
-                    $update = $this->Employee->custom("UPDATE `orders` SET `status` = 1 WHERE `order_id` = $order");
+                    $update = $this->Employee->custom("UPDATE `orders` SET `status` = 1 WHERE `order_id` = $order ");
                     if ($update) {
                         echo 'Order processing completed!\n';
                     } else {
@@ -107,7 +115,8 @@ class EmployeesController extends VanillaController {
                 }
             }
         }
-        $orders = $this->Employee->custom("SELECT * FROM `orders` WHERE `status` = 0 ");
+        $id = $_SESSION['id'];
+        $orders = $this->Employee->custom("SELECT * FROM `orders` WHERE `status` = 0 AND `employee_id` = $id");
 
         $this->setTemplateVariable('orders', $orders);
 

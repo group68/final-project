@@ -1,3 +1,4 @@
+<div style="padding: 5%;">
 <div>
     <!-- <form method="POST">
         <?php foreach ($ingredients as $ingredient) : ?>

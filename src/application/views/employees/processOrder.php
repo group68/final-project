@@ -1,3 +1,4 @@
+<div style="padding: 5%;">
 <div>
 
 <form method="POST">
@@ -10,7 +11,7 @@
     ?>
     <br><input type="checkbox" value="<?echo $current['order_id']?>" name="orders[]">
         <? endforeach ?>
-        <br><input type="submit" value="Click To Submit">
+        <br><input type="submit" value="Process orders">
         <input type="reset" value="Reset">
     <? } else {
         echo "no order!\n";
