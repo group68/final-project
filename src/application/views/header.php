@@ -18,9 +18,9 @@
     <?php echo $html->includeJsDeffered("header"); ?>
 
     <?php
-        foreach (${Template::CUSTOM_CSS_FILES} as $cssFile) {
-            echo $html->includeCss($cssFile) . "\n";
-        }
+    foreach (${Template::CUSTOM_CSS_FILES} as $cssFile) {
+        echo $html->includeCss($cssFile) . "\n";
+    }
     ?>
 </head>
 
@@ -49,9 +49,12 @@
                     <li class="navbar-item"><a class="navbar-link_customer" href="/">Home</a></li>
                     <li class="navbar-item"><a class="navbar-link_customer" href="/">Menu</a></li>
                     <?php
-                    if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'])
-                        echo "<li class='navbar-item'><a class='navbar-link_customer' href='/customer/logout'>Logout</a></li>";
-                    else
+                    if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
+                        if (isset($_SESSION['isEmployee']) && $_SESSION['isEmployee'] === true)
+                            echo "<li class='navbar-item'><a class='navbar-link_customer' href='/employees/logout'>Logout</a></li>";
+                        else
+                            echo "<li class='navbar-item'><a class='navbar-link_customer' href='/customer/logout'>Logout</a></li>";
+                    } else
                         echo "<li class='navbar-item'><a class='navbar-link_customer' href='/customer/login'>Login</a></li>";
                     ?>
                     <li class="navbar-item"><a class="navbar-link_customer" href="/products/order"><i class="fas fa-cart-plus"></i><?php echo ' ' . $count_txt ?></a></li>
