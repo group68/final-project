@@ -25,7 +25,24 @@ class Product extends VanillaModel
         return $imgs;
     }
 
-    public function submitOrder()
+    public function submitOrder($customer_id)
     {
+        if ($customer_id) {
+            //get employees which work least
+            $employee_id = null;
+            //create order
+            $query = "INSERT INTO `orders`(
+                `order_id`,
+                `customer_id`,
+                `employee_id`,
+                `status`
+            )
+            VALUES(
+                0,
+                $customer_id,
+                $employee_id,
+                '0'
+            )";
+        }
     }
 }

@@ -42,6 +42,9 @@ class CustomerController extends VanillaController
                     $_SESSION["isCustommer"] = true;
                     $_SESSION["id"] = $query[0]['Customer']['customer_id'];
                     $_SESSION["username"] = $username;
+
+                    header('location: /');
+                    exit;
                 }
             }
         }

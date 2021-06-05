@@ -118,7 +118,7 @@ class ProductsController extends VanillaController
                         //redirect to prom user login
                         break;
                     } else {
-                        $this->Product->submitOrder();
+                        $this->Product->submitOrder($_SESSION["id"]);
                         unset($_SESSION["cart_item"]);
                         unset($_SESSION["item_count"]);
                     }
