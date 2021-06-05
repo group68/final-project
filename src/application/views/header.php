@@ -6,9 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fast-food restaurant</title>
-    <script src="https://use.fontawesome.com/0e4620ce6a.js"></script>
+    <!-- <script src="https://use.fontawesome.com/0e4620ce6a.js"></script> -->
+    <script src="https://kit.fontawesome.com/9f89debcba.js" crossorigin="anonymous"></script>
+   
     <?php echo $html->includeCss("common"); ?>
     <?php echo $html->includeCss("header"); ?>
+    
     <?php echo $html->includeCss("footer"); ?>
     <?php echo $html->includeCss("home"); ?>
     <?php echo $html->includeJsDeffered("header"); ?>
@@ -24,8 +27,10 @@
     <div id="navbar">
         <nav class="navbar-container container">
             <a href="/" class="home-link">
-                <div class="navbar-logo"></div>
-                SE-FastFood
+            <div class="logo-div">
+                    <img src="../img/fflogo.png" alt="Omnifood logo" class="logo inline-element">
+                    <h3 class="logo inline-element title text-title">SE Restaurant</h3>
+            </div>
             </a>
             <button type="button" class="navbar-toggle" aria-label="Open navigation menu">
                 <span class="icon-bar"></span>
@@ -37,8 +42,10 @@
                     <li class="navbar-item"><a class="navbar-link_customer" href="/">Home</a></li>
                     <li class="navbar-item"><a class="navbar-link_customer" href="/">Menu</a></li>
                     <li class="navbar-item"><a class="navbar-link_customer" href="">Login</a></li>
-                    <li class="navbar-item"><a class="navbar-link_customer" href="/products/order"><i class="fas fa-shopping-cart icon-2x"></i><?php echo $count_txt ?></a></li>
+                    <li class="navbar-item"><a class="navbar-link_customer" href="/products/order"><i class="fas fa-cart-plus"></i><?php echo $count_txt ?></a></li>
                 </ul>
             </div>
         </nav>
+
+        
     </div>
