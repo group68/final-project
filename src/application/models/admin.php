@@ -261,4 +261,12 @@ class Admin extends VanillaModel
         $difference = $this->getDifference();
         return new adminData($revenues_, $difference[0], $difference[1], $best_sellers_, $favourite_customers_);
     }
+
+    public function checkAdmin()
+    {
+        if (isset($_SESSION["isManager"]) && $_SESSION["isManager"] === true) {
+            return true;
+        }
+        return false;
+    }
 }
