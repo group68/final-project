@@ -163,9 +163,9 @@ input[type="submit"] {
     border-radius: 200px;
     -webkit-transition: background-color 0.2s, border 0.2s, color 0.2s;
     transition: background-color 0.2s, border 0.2s, color 0.2s;
-  }
-  
-  .btn-home {
+}
+
+.btn-home {
     padding: 5vh 10vh 5vh 10vh;
     background-color: #F59E31;
     border-radius: 10px;
@@ -233,6 +233,11 @@ header {
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
+
+
+/* .main-header {
+    background-color: black !important;
+} */
 
 
 /*------------------------------------*/
@@ -628,17 +633,38 @@ input[type="checkbox"] {
 
 *:focus {
     outline: none;
-  }
-  
-  
-  /*------------------------------------*/
-  /* FOOTER */
-  /*------------------------------------*/
-  
-  footer {
+}
+
+
+/*------------------------------------*/
+
+
+/* FOOTER */
+
+
+/*------------------------------------*/
+
+footer {
     background-color: #333;
     padding: 50px;
     font-size: 80%;
+    clear: both;
+    position: relative;
+    /* height: 150px; */
+    margin-top: -150px;
+    min-height: 100px;
+}
+
+
+/* Trick */
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    margin-top: auto;
 }
 
 .footer-nav {

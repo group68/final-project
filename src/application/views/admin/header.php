@@ -5,6 +5,7 @@
 	<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<?php echo $html->includeCss("common"); ?>
+    
 
 </head>
 <body>
