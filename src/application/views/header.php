@@ -14,6 +14,7 @@
     
     <?php echo $html->includeCss("footer"); ?>
     <?php echo $html->includeCss("home"); ?>
+    <?php echo $html->includeCss("order"); ?>
     <?php echo $html->includeJsDeffered("header"); ?>
 </head>
 

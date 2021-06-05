@@ -1,10 +1,52 @@
-<div style="padding-top: 5%;">
-    <?php foreach ($products as $k => $v) : ?>
-        <div style="display: flex; flex-direction:row; justify-content: space-between; padding: 5vh">
-            <img src="<?php echo $v['image_url'] ?>" style="width: 30vh" />
-            <p><?php echo $v['name'] ?></p>
-            <p><?php echo $v['price'] ?></p>
-            <p><?php echo $v['quantity'] ?></p>
-        </div>
-    <?php endforeach ?>
+<div id="shopping-cart">
+    <div class="txt-heading">Your Cart</div>
+
+    <a id="btnEmpty" href="/products/order?action=empty">Empty Cart</a>
+    <?php
+    if (count($products) > 0) {
+        $total_quantity = 0;
+        $total_price = 0;
+    ?>
+        <table class="tbl-cart" cellpadding="10" cellspacing="1">
+            <tbody>
+                <tr>
+                    <th style="text-align:left;">Name</th>
+                    <th style="text-align:right;" width="5%">Quantity</th>
+                    <th style="text-align:right;" width="10%">Unit Price</th>
+                    <th style="text-align:right;" width="10%">Price</th>
+                    <th style="text-align:center;" width="5%">Remove</th>
+                </tr>
+                <?php
+                foreach ($products as $k => $item) {
+                    $item_price = $item["quantity"] * $item["price"];
+                ?>
+                    <tr>
+                        <td><img src="<?php echo $item["image_url"]; ?>" class="cart-item-image" /><?php echo $item["name"]; ?></td>
+                        <td style="text-align:right;"><?php echo $item["quantity"]; ?></td>
+                        <td style="text-align:right;"><?php echo number_format($item["price"], 0) . "đ"; ?></td>
+                        <td style="text-align:right;"><?php echo number_format($item_price, 0) . "đ"; ?></td>
+                        <td style="text-align:center;"><a href="/products/order?action=remove&id=<?php echo $k; ?>" class="btnRemoveAction"><i class="fas fa-trash"></i></a></td>
+                    </tr>
+                <?php
+                    $total_quantity += $item["quantity"];
+                    $total_price += ($item["price"] * $item["quantity"]);
+                }
+                ?>
+
+                <tr>
+                    <td colspan="2" align="right">Total:</td>
+                    <td align="right"><?php echo $total_quantity; ?></td>
+                    <td align="right" colspan="2"><strong><?php echo number_format($total_price, 0) . "đ"; ?></strong></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <a id="btn-submit" href="/products/order?action=submit">Place order</a>
+    <?php
+    } else {
+    ?>
+        <div class="no-records">Your Cart is Empty</div>
+    <?php
+    }
+    ?>
 </div>
