@@ -24,4 +24,8 @@ class Product extends VanillaModel
 
         return $imgs;
     }
+
+    public function submitOrder()
+    {
+    }
 }

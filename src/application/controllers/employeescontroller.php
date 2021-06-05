@@ -1,10 +1,13 @@
 <?php
 
-class EmployeesController extends VanillaController {
-    function beforeAction() {
+class EmployeesController extends VanillaController
+{
+    function beforeAction()
+    {
     }
 
-    function login() {
+    function login()
+    {
         session_start();
 
         // Check if the user is logged in, otherwise redirect to login page
@@ -58,16 +61,19 @@ class EmployeesController extends VanillaController {
         return true;
     }
 
-    function index() {
+    function index()
+    {
     }
 
-    function import() {
+    function import()
+    {
         $ingredients = $this->Employee->custom("SELECT * FROM `ingredients`");
 
         $this->set_template_variable('ingredients', $ingredients);
     }
 
-    function processOrder() {
+    function processOrder()
+    {
         session_start();
 
         // Check if the user is logged in, otherwise redirect to login page
@@ -103,10 +109,12 @@ class EmployeesController extends VanillaController {
         return true;
     }
 
-    function view($id = null) {
+    function view($id = null)
+    {
     }
 
 
-    function afterAction() {
+    function afterAction()
+    {
     }
 }
