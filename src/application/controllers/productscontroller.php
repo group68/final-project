@@ -16,6 +16,7 @@ class ProductsController extends VanillaController
         $this->setTemplateVariable('categories', $categories);
         $this->setTemplateVariable('imgs', $imgs);
 
+        $this->registerCustomCssFiles('home');
         return true;
     }
 
@@ -65,6 +66,7 @@ class ProductsController extends VanillaController
             return false;
         }
 
+        $this->registerCustomCssFiles('home');
         return true;
     }
 
@@ -85,12 +87,25 @@ class ProductsController extends VanillaController
             return false;
         }
 
+        $this->registerCustomCssFiles('home');
         return true;
     }
 
     function order()
     {
         session_start();
+
+        $products = array();
+        if (isset($_SESSION['item_count'])) {
+            foreach ($_SESSION['cart_item'] as $k => $v) {
+                $prod = $this->Product->custom("SELECT * FROM `products` WHERE `product_id` = {$k} LIMIT 1");
+                // echo $v . "<br/>";
+                if ($prod) {
+                    $cart_item = array($k => array('name' => $prod[0]['Product']['NAME'], 'image_url' => $prod[0]['Product']['image_url'], 'price' => $prod[0]['Product']['price'], 'quantity' => $v));
+                    $products = $products + $cart_item;
+                }
+            }
+        }
 
         $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         $parts = parse_url($actual_link);
@@ -119,27 +134,26 @@ class ProductsController extends VanillaController
                         //redirect to prom user login
                         break;
                     } else {
-                        $this->Product->submitOrder($_SESSION["id"]);
-                        unset($_SESSION["cart_item"]);
-                        unset($_SESSION["item_count"]);
+                        if (!isset($_SESSION['cart_item'])) {
+                            http_response_code(403);
+                            exit();
+                        }
+                        if ($this->Product->submitOrder($_SESSION["id"], $products)) {
+                            // echo "hehe enter here <br/>";
+                            unset($_SESSION["cart_item"]);
+                            unset($_SESSION["item_count"]);
+                        } else
+                            http_response_code(500);
                     }
                     break;
             }
         }
 
-        $products = array();
-        if (isset($_SESSION['item_count'])) {
-            foreach ($_SESSION['cart_item'] as $k => $v) {
-                $prod = $this->Product->custom("SELECT * FROM `products` WHERE `product_id` = {$k} LIMIT 1");
-                // echo $v . "<br/>";
-                if ($prod) {
-                    $cart_item = array($k => array('name' => $prod[0]['Product']['NAME'], 'image_url' => $prod[0]['Product']['image_url'], 'price' => $prod[0]['Product']['price'], 'quantity' => $v));
-                    $products = $products + $cart_item;
-                }
-            }
-        }
+        if (!isset($_SESSION['item_count']))
+            $products = array();
 
         $this->setTemplateVariable('products', $products);
+        $this->registerCustomCssFiles('order');
         return true;
     }
 }

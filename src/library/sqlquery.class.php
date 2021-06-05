@@ -1,7 +1,8 @@
 <?php
 include_once(ROOT . DS . 'library' . DS . 'deprecated_functions.php');
 
-class SQLQuery {
+class SQLQuery
+{
     protected $_dbHandle;
     protected $_result;
     protected $_query;
@@ -20,7 +21,8 @@ class SQLQuery {
 
     /** Connects to database **/
 
-    function connect($address, $account, $pwd, $name) {
+    function connect($address, $account, $pwd, $name)
+    {
         $this->_dbHandle = @mysqli_connect($address, $account, $pwd);
         if ($this->_dbHandle) {
             if (mysqli_set_charset($this->_dbHandle, 'utf8mb4')) {
@@ -34,50 +36,61 @@ class SQLQuery {
 
     /** Disconnects from database **/
 
-    function disconnect() {
+    function disconnect()
+    {
         return @mysqli_close($this->_dbHandle);
     }
 
-    function sanitize($value) {
+    function sanitize($value)
+    {
         return mysqli_escape_string($this->_dbHandle, $value);
     }
 
     /** Select Query **/
 
-    function where($field, $value) {
+    function where($field, $value)
+    {
         $this->_extraConditions .= '`' . $this->_model . '`.`' . $field . '` = \'' . mysqli_real_escape_string($this->_dbHandle, $value) . '\' AND ';
     }
 
-    function like($field, $value) {
+    function like($field, $value)
+    {
         $this->_extraConditions .= '`' . $this->_model . '`.`' . $field . '` LIKE \'%' . mysqli_real_escape_string($this->_dbHandle, $value) . '%\' AND ';
     }
 
-    function showHasOne() {
+    function showHasOne()
+    {
         $this->_hO = 1;
     }
 
-    function showHasMany() {
+    function showHasMany()
+    {
         $this->_hM = 1;
     }
 
-    function showHMABTM() {
+    function showHMABTM()
+    {
         $this->_hMABTM = 1;
     }
 
-    function setLimit($limit) {
+    function setLimit($limit)
+    {
         $this->_limit = $limit;
     }
 
-    function setPage($page) {
+    function setPage($page)
+    {
         $this->_page = $page;
     }
 
-    function orderBy($orderBy, $order = 'ASC') {
+    function orderBy($orderBy, $order = 'ASC')
+    {
         $this->_orderBy = $orderBy;
         $this->_order = $order;
     }
 
-    function search() {
+    function search()
+    {
 
         global $inflect;
 
@@ -247,7 +260,8 @@ class SQLQuery {
 
     /** Custom SQL Query **/
 
-    function custom($query) {
+    function custom($query)
+    {
         global $inflect;
 
         $result = mysqli_query($this->_dbHandle, $query);
@@ -285,9 +299,15 @@ class SQLQuery {
         return ($result);
     }
 
+    function custom2($query)
+    {
+        return mysqli_query($this->_dbHandle, $query);
+    }
+
     /** Describes a Table **/
 
-    protected function _describe() {
+    protected function _describe()
+    {
         global $cache;
 
         $this->_describe = $cache->get('describe' . $this->_table);
@@ -311,7 +331,8 @@ class SQLQuery {
 
     /** Delete an Object **/
 
-    function delete() {
+    function delete()
+    {
         if ($this->id) {
             $query = 'DELETE FROM ' . $this->_table . ' WHERE `id`=\'' . $this->dbHandle->real_escape_string($this->id) . '\'';
             $this->_result = mysqli_query($this->_dbHandle, $query);
@@ -328,7 +349,8 @@ class SQLQuery {
 
     /** Saves an Object i.e. Updates/Inserts Query **/
 
-    function save() {
+    function save()
+    {
         $query = '';
         if (isset($this->id)) {
             $updates = '';
@@ -365,7 +387,8 @@ class SQLQuery {
 
     /** Clear All Variables **/
 
-    function clear() {
+    function clear()
+    {
         foreach ($this->_describe as $field) {
             $this->$field = null;
         }
@@ -381,7 +404,8 @@ class SQLQuery {
 
     /** Pagination Count **/
 
-    function totalPages() {
+    function totalPages()
+    {
         if ($this->_query && $this->_limit) {
             $pattern = '/SELECT (.*?) FROM (.*)LIMIT(.*)/i';
             $replacement = 'SELECT COUNT(*) FROM $2';
@@ -398,7 +422,8 @@ class SQLQuery {
 
     /** Get error string **/
 
-    function getError() {
+    function getError()
+    {
         return mysqli_error($this->_dbHandle);
     }
 }
