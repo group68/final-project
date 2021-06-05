@@ -165,6 +165,18 @@ input[type="submit"] {
     transition: background-color 0.2s, border 0.2s, color 0.2s;
 }
 
+.btn:link,
+.btn:visited,
+input[type="reset"] {
+    display: inline-block;
+    padding: 10px 30px;
+    font-weight: 300;
+    text-decoration: none;
+    border-radius: 200px;
+    -webkit-transition: background-color 0.2s, border 0.2s, color 0.2s;
+    transition: background-color 0.2s, border 0.2s, color 0.2s;
+}
+
 .btn-home {
     padding: 5vh 10vh 5vh 10vh;
     background-color: #F59E31;
@@ -183,6 +195,15 @@ input[type="submit"] {
     margin-right: 15px;
 }
 
+.btn-full:link,
+.btn-full:visited,
+input[type="reset"] {
+    background-color: #e67e22;
+    border: 1px solid #e67e22;
+    color: #fff;
+    margin-right: 15px;
+}
+
 .btn-ghost:link,
 .btn-ghost:visited {
     border: 1px solid #e67e22;
@@ -193,6 +214,13 @@ input[type="submit"] {
 .btn:hover,
 input[type="submit"]:active,
 input[type="submit"]:hover {
+    background-color: #cf6d17;
+}
+
+.btn:active,
+.btn:hover,
+input[type="reset"]:active,
+input[type="reset"]:hover {
     background-color: #cf6d17;
 }
 
@@ -614,6 +642,7 @@ cite img {
 }
 
 input[type="text"],
+input[type="password"],
 input[type="email"],
 select,
 textarea {

@@ -14,6 +14,7 @@ class EmployeesController extends VanillaController {
                 // header("location: /employees/index.php");
                 // exit;
                 echo "is employee!\n";
+                header("location: /employees/processOrder");
             } else {
                 header("location: /");
                 exit;
@@ -21,28 +22,21 @@ class EmployeesController extends VanillaController {
         }
         // Define variables and initialize with empty values
         $username = $password = "";
-        $username_err = $password_err = $login_err = "";
+        $err = $login_err = "";
 
         // Processing form data when form is submitted
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Check if username is empty
-            if (empty(trim($_POST["username"]))) {
-                $username_err = "Please enter username.";
-                echo $username_err;
+            if (empty(trim($_POST["username"])) || empty(trim($_POST["password"]))) {
+                $err = "Username and password must not be blank";
+                $this->set_template_variable('err',$err);
             } else {
                 $username = trim($_POST["username"]);
-            }
-
-            // Check if password is empty
-            if (empty(trim($_POST["password"]))) {
-                $password_err = "Please enter your password.";
-                echo $password_err;
-            } else {
                 $password = trim($_POST["password"]);
             }
 
-            if (empty($username_err) && empty($password_err)) {
+            if (empty($err)) {
                 //login
                 $username = $this->Employee->sanitize($username);
                 $password = $this->Employee->sanitize($password);
@@ -50,12 +44,14 @@ class EmployeesController extends VanillaController {
                 $query = $this->Employee->custom($sql);
                 if (!$query) {
                     $login_err = "Invalid username or password.";
-                    echo "$login_err";
+                    // echo "$login_err";
+                    $this->set_template_variable('err',$login_err);
                 } else {
                     $_SESSION["loggedIn"] = true;
                     $_SESSION["isEmployee"] = true;
                     $_SESSION["id"] = $query[0]['Employee']['employee_id'];
                     $_SESSION["username"] = $username;
+                    $_SESSION["isManager"] = $query[0]['Employee']['is_manager'];
                 }
             }
         }
@@ -114,4 +110,3 @@ class EmployeesController extends VanillaController {
     function afterAction() {
     }
 }
-
