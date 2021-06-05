@@ -16,7 +16,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mt-15">
                 <p>
                     Copyright &copy; 2021 by Group-68. All rights reserved.
                 </p>

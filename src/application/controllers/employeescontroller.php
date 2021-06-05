@@ -69,6 +69,7 @@ class EmployeesController extends VanillaController {
         $ingredients = $this->Employee->custom("SELECT * FROM `ingredients`");
 
         $this->set_template_variable('ingredients', $ingredients);
+        return true;
     }
 
     function processOrder() {

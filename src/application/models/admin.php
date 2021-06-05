@@ -261,4 +261,10 @@ class Admin extends VanillaModel
         $difference = $this->getDifference();
         return new adminData($revenues_, $difference[0], $difference[1], $best_sellers_, $favourite_customers_);
     }
+
+    public function getRequests() {
+        $query = "SELECT * from `importment_requests`";
+        $requests = $this->custom($query);
+        return $requests;
+    }
 }

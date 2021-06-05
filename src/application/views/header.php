@@ -29,7 +29,7 @@
         <nav class="navbar-container container">
             <a href="/" class="home-link">
             <div class="logo-div">
-                    <img src="../img/fflogo.png" alt="Omnifood logo" class="logo inline-element">
+                    <img src="../img/fflogo.png" class="logo inline-element">
                     <h3 class="logo inline-element title text-title">SE Restaurant</h3>
             </div>
             </a>
@@ -43,7 +43,7 @@
                     <li class="navbar-item"><a class="navbar-link_customer" href="/">Home</a></li>
                     <li class="navbar-item"><a class="navbar-link_customer" href="/">Menu</a></li>
                     <li class="navbar-item"><a class="navbar-link_customer" href="">Login</a></li>
-                    <li class="navbar-item"><a class="navbar-link_customer" href="/products/order"><i class="fas fa-cart-plus"></i><?php echo $count_txt ?></a></li>
+                    <li class="navbar-item"><a class="navbar-link_customer" href="/products/order"><i class="fas fa-cart-plus mr-5"></i><?php echo $count_txt ?></a></li>
                 </ul>
             </div>
         </nav>

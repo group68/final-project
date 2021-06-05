@@ -37,6 +37,7 @@
 
 
                 <ul class="main-nav js--main-nav">
+                    <li><a href="<?php echo "/admin/requests" ?>">Requests</a></li>
                     <li><a href="#revenue-session">Statistic</a></li>
                     <li><a href="#customer-sesion">Customers</a></li>
                     <li><a href="#best-sellers-session">Products</a></li>

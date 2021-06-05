@@ -19,7 +19,9 @@ class AdminController extends VanillaController
         // $decreasing_amount = [0, 0, 0];
         // $this->set_template_variable('revenues', $revenues);
         // $this->set_template_variable('increasing_amount', $increasing_amount);
+        $requests = $this->Admin->getRequests();
         $this->set_template_variable('admindata', $admindata);
+        $this->set_template_variable('requests', $requests);
         return true;
     }
 
@@ -33,6 +35,14 @@ class AdminController extends VanillaController
             
         // }
         
+    }
+
+    function requests() {
+        $this->doNotRenderHeader = true;
+        // $requests = $this->Admin->getRequests();
+        // $this->set_template_variable('admindata', $admindata);
+        // $this->set_template_variable('requests', $requests);
+        return true;
     }
    
     function afterAction()

@@ -651,8 +651,13 @@ footer {
     clear: both;
     position: relative;
     /* height: 150px; */
+<<<<<<< HEAD
     margin-top: -150px;
     min-height: 100px;
+=======
+    /* margin-top: -150px;
+    min-height: 100px; */
+>>>>>>> 7caf9f8 (fix: header and footer for better UI)
 }
 
 
@@ -963,6 +968,10 @@ input[type="submit"]:hover {
 
 .mr-15 {
     margin-right: 15px;
+}
+
+.mr-5 {
+    margin-right: 5px;
 }
 
 .mt-15 {
