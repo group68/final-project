@@ -1,6 +1,6 @@
+<div style="padding: 5%;">
 <div>
     <form action="/employees/login" method="post">
-        <h1>Login form</h1>
         <br>
         <p class="highlight">Please enter your username and password to continue</p>
         <p class="highlight">Employee Login</p>
