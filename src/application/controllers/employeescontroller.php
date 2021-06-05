@@ -1,13 +1,10 @@
 <?php
 
-class EmployeesController extends VanillaController
-{
-    function beforeAction()
-    {
+class EmployeesController extends VanillaController {
+    function beforeAction() {
     }
 
-    function login()
-    {
+    function login() {
         session_start();
 
         // Check if the user is logged in, otherwise redirect to login page
@@ -33,7 +30,7 @@ class EmployeesController extends VanillaController
             // Check if username is empty
             if (empty(trim($_POST["username"])) || empty(trim($_POST["password"]))) {
                 $err = "Username and password must not be blank";
-                $this->set_template_variable('err',$err);
+                $this->set_template_variable('err', $err);
             } else {
                 $username = trim($_POST["username"]);
                 $password = trim($_POST["password"]);
@@ -48,7 +45,7 @@ class EmployeesController extends VanillaController
                 if (!$query) {
                     $login_err = "Invalid username or password.";
                     // echo "$login_err";
-                    $this->set_template_variable('err',$login_err);
+                    $this->set_template_variable('err', $login_err);
                 } else {
                     $_SESSION["loggedIn"] = true;
                     $_SESSION["isEmployee"] = true;
@@ -61,19 +58,16 @@ class EmployeesController extends VanillaController
         return true;
     }
 
-    function index()
-    {
+    function index() {
     }
 
-    function import()
-    {
+    function import() {
         $ingredients = $this->Employee->custom("SELECT * FROM `ingredients`");
 
         $this->set_template_variable('ingredients', $ingredients);
     }
 
-    function processOrder()
-    {
+    function processOrder() {
         session_start();
 
         // Check if the user is logged in, otherwise redirect to login page
@@ -109,12 +103,21 @@ class EmployeesController extends VanillaController
         return true;
     }
 
-    function view($id = null)
-    {
+    function logOut() {
+        session_start();
+        if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
+            $_SESSION["loggedIn"] = false;
+            $_SESSION["isEmployee"] = false;
+            $_SESSION["isManager"] = false;
+            $_SESSION["id"] = "";
+            $_SESSION["username"] = "";
+        }
+    }
+
+    function view($id = null) {
     }
 
 
-    function afterAction()
-    {
+    function afterAction() {
     }
 }
