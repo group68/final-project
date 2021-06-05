@@ -33,7 +33,7 @@ class EmployeesController extends VanillaController
             // Check if username is empty
             if (empty(trim($_POST["username"])) || empty(trim($_POST["password"]))) {
                 $err = "Username and password must not be blank";
-                $this->set_template_variable('err',$err);
+                $this->set_template_variable('err', $err);
             } else {
                 $username = trim($_POST["username"]);
                 $password = trim($_POST["password"]);
@@ -48,7 +48,7 @@ class EmployeesController extends VanillaController
                 if (!$query) {
                     $login_err = "Invalid username or password.";
                     // echo "$login_err";
-                    $this->set_template_variable('err',$login_err);
+                    $this->set_template_variable('err', $login_err);
                 } else {
                     $_SESSION["loggedIn"] = true;
                     $_SESSION["isEmployee"] = true;
