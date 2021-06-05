@@ -8,6 +8,11 @@ class AdminController extends VanillaController
 
     function index()
     {
+        session_start();
+        if (!$this->Admin->checkAdmin()) {
+            header("Location: /employees/login");
+            exit();
+        }
         $this->doNotRenderHeader = true;
 
         // $products = $this->Product->custom("SELECT `product_id`, `NAME` FROM `products`");

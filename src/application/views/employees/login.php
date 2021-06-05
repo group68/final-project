@@ -3,6 +3,7 @@
         <h1>Login form</h1>
         <br>
         <p class="highlight">Please enter your username and password to continue</p>
+        <p class="highlight">Employee Login</p>
         <br>Username: <input text type="text" size="50" maxlength="50" name="username">
         <br>
         Password: <input text type="password" size="30" maxlength="30" name="password"><br>

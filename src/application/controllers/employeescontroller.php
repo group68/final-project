@@ -11,10 +11,12 @@ class EmployeesController extends VanillaController {
         if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
             if (isset($_SESSION["isEmployee"]) && $_SESSION["isEmployee"] === true) {
 
-                // header("location: /employees/index.php");
-                // exit;
-                echo "is employee!\n";
+                if (isset($_SESSION["isManager"]) && $_SESSION["isManager"] === true) {
+                    header("location: /admin");
+                    exit();
+                }
                 header("location: /employees/processOrder");
+                exit();
             } else {
                 header("location: /");
                 exit;
@@ -30,7 +32,7 @@ class EmployeesController extends VanillaController {
             // Check if username is empty
             if (empty(trim($_POST["username"])) || empty(trim($_POST["password"]))) {
                 $err = "Username and password must not be blank";
-                $this->setTemplateVariable('err',$err);
+                $this->setTemplateVariable('err', $err);
             } else {
                 $username = trim($_POST["username"]);
                 $password = trim($_POST["password"]);
@@ -45,13 +47,21 @@ class EmployeesController extends VanillaController {
                 if (!$query) {
                     $login_err = "Invalid username or password.";
                     // echo "$login_err";
-                    $this->setTemplateVariable('err',$login_err);
+                    $this->setTemplateVariable('err', $login_err);
                 } else {
                     $_SESSION["loggedIn"] = true;
                     $_SESSION["isEmployee"] = true;
                     $_SESSION["id"] = $query[0]['Employee']['employee_id'];
                     $_SESSION["username"] = $username;
-                    $_SESSION["isManager"] = $query[0]['Employee']['is_manager'];
+                    if ($query[0]['Employee']['is_manager']) {
+                        $_SESSION["isManager"] = true;
+                        header("location: /admin");
+                        exit();
+                    } else {
+                        $_SESSION["isManager"] = false;
+                        header("location: /employees/processOrder");
+                        exit();
+                    }
                 }
             }
         }
@@ -69,6 +79,7 @@ class EmployeesController extends VanillaController {
 
     function processOrder() {
         session_start();
+        echo $_SESSION['isManager'];
 
         // Check if the user is logged in, otherwise redirect to login page
         if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
@@ -112,6 +123,8 @@ class EmployeesController extends VanillaController {
             $_SESSION["id"] = "";
             $_SESSION["username"] = "";
         }
+        header("location: /employees/login");
+        exit();
     }
 
     function view($id = null) {
