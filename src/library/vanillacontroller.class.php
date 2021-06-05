@@ -25,9 +25,13 @@ class VanillaController
         $this->_template = new Template($controllerName, $action);
     }
 
-    function set_template_variable($name, $value)
+    function setTemplateVariable($name, $value)
     {
         $this->_template->set($name, $value);
+    }
+
+    function registerCustomCssFiles(string ...$filePaths) {
+        $this->_template->registerCustomCssFiles(...$filePaths);
     }
 
     function renderView()

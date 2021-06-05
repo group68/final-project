@@ -13,8 +13,9 @@ class ProductsController extends VanillaController
             return false;
         }
 
-        $this->set_template_variable('categories', $categories);
-        $this->set_template_variable('imgs', $imgs);
+        $this->setTemplateVariable('categories', $categories);
+        $this->setTemplateVariable('imgs', $imgs);
+
         return true;
     }
 
@@ -59,7 +60,7 @@ class ProductsController extends VanillaController
         }
 
         if (count($products) > 0) {
-            $this->set_template_variable('product', $products[0]);
+            $this->setTemplateVariable('product', $products[0]);
         } else {
             return false;
         }
@@ -79,7 +80,7 @@ class ProductsController extends VanillaController
         }
 
         if (count($products) > 0) {
-            $this->set_template_variable('products', $products);
+            $this->setTemplateVariable('products', $products);
         } else {
             return false;
         }
@@ -138,7 +139,7 @@ class ProductsController extends VanillaController
             }
         }
 
-        $this->set_template_variable('products', $products);
+        $this->setTemplateVariable('products', $products);
         return true;
     }
 }

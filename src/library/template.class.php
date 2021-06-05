@@ -1,6 +1,8 @@
 <?php
 class Template
 {
+    const CUSTOM_CSS_FILES = "_customCssFiles";
+
     protected $variables = array();
     protected $_controller;
     protected $_action;
@@ -9,6 +11,8 @@ class Template
     {
         $this->_controller = $controller;
         $this->_action = $action;
+
+        $this->set(Template::CUSTOM_CSS_FILES, array());
     }
 
     /** Set Variables **/
@@ -16,6 +20,10 @@ class Template
     function set($name, $value)
     {
         $this->variables[$name] = $value;
+    }
+
+    function registerCustomCssFiles(string ...$filePaths) {
+        array_push($this->variables[Template::CUSTOM_CSS_FILES], ...$filePaths);
     }
 
     /** Display Template **/

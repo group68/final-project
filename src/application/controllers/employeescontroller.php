@@ -30,7 +30,7 @@ class EmployeesController extends VanillaController {
             // Check if username is empty
             if (empty(trim($_POST["username"])) || empty(trim($_POST["password"]))) {
                 $err = "Username and password must not be blank";
-                $this->set_template_variable('err', $err);
+                $this->setTemplateVariable('err',$err);
             } else {
                 $username = trim($_POST["username"]);
                 $password = trim($_POST["password"]);
@@ -45,7 +45,7 @@ class EmployeesController extends VanillaController {
                 if (!$query) {
                     $login_err = "Invalid username or password.";
                     // echo "$login_err";
-                    $this->set_template_variable('err', $login_err);
+                    $this->setTemplateVariable('err',$login_err);
                 } else {
                     $_SESSION["loggedIn"] = true;
                     $_SESSION["isEmployee"] = true;
@@ -64,7 +64,7 @@ class EmployeesController extends VanillaController {
     function import() {
         $ingredients = $this->Employee->custom("SELECT * FROM `ingredients`");
 
-        $this->set_template_variable('ingredients', $ingredients);
+        $this->setTemplateVariable('ingredients', $ingredients);
     }
 
     function processOrder() {
@@ -98,7 +98,7 @@ class EmployeesController extends VanillaController {
         }
         $orders = $this->Employee->custom("SELECT * FROM `orders` WHERE `status` = 0 ");
 
-        $this->set_template_variable('orders', $orders);
+        $this->setTemplateVariable('orders', $orders);
 
         return true;
     }
