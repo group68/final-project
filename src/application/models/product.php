@@ -25,24 +25,41 @@ class Product extends VanillaModel
         return $imgs;
     }
 
-    public function submitOrder($customer_id)
+    public function submitOrder($customer_id, $carts)
     {
         if ($customer_id) {
-            //get employees which work least
-            $employee_id = null;
-            //create order
-            $query = "INSERT INTO `orders`(
-                `order_id`,
-                `customer_id`,
-                `employee_id`,
-                `status`
-            )
-            VALUES(
-                0,
-                $customer_id,
-                $employee_id,
-                '0'
-            )";
+            $query = "CALL add_new_order($customer_id, @em_id, @ord_id);";
+            $result = $this->custom($query);
+            if (!$result)
+                return false;
+
+            $ord_result = $this->custom2("SELECT @ord_id as order_id;");
+            if (!$ord_result)
+                return false;
+
+            $row = $ord_result->fetch_assoc();
+            $ord_id = $row['order_id'];
+
+            foreach ($carts as $k => $v) {
+                $cart_item_query = "INSERT INTO `order_items`(
+                    `product_id`,
+                    `order_id`,
+                    `quantity`,
+                    `unit_price`
+                )
+                VALUES(
+                    $k,
+                    $ord_id,
+                    {$v['quantity']},
+                    {$v['price']}
+                );";
+
+                // echo $cart_item_query . "<br />";
+                $res = $this->custom($cart_item_query);
+                if (!$res)
+                    return false;
+            }
+            return true;
         }
     }
 }
