@@ -19,7 +19,7 @@ class AdminController extends VanillaController
         // $decreasing_amount = [0, 0, 0];
         // $this->set_template_variable('revenues', $revenues);
         // $this->set_template_variable('increasing_amount', $increasing_amount);
-        $this->set_template_variable('admindata', $admindata);
+        $this->setTemplateVariable('admindata', $admindata);
         return true;
     }
 

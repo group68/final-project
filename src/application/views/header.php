@@ -16,6 +16,12 @@
     <?php echo $html->includeCss("home"); ?>
     <?php echo $html->includeCss("order"); ?>
     <?php echo $html->includeJsDeffered("header"); ?>
+
+    <?php
+        foreach (${Template::CUSTOM_CSS_FILES} as $cssFile) {
+            echo $html->includeCss($cssFile) . "\n";
+        }
+    ?>
 </head>
 
 <body>
