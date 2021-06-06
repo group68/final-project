@@ -1,4 +1,3 @@
-
 <?php
 
 class adminData
@@ -27,7 +26,7 @@ class Admin extends VanillaModel
     public function getBestSeller()
     {
         $best_sellers_query = "SELECT * FROM `products`
-        INNER JOIN( 
+        INNER JOIN(
             SELECT oi.product_id AS product_id,
                    SUM(oi.quantity) AS purchase_count
             FROM
@@ -196,17 +195,23 @@ class Admin extends VanillaModel
         $day_rev = $this->custom($query_day);
         if (!$day_rev) {
             $day_rev = 0;
-        } else $day_rev = $day_rev[0]['Day_report']['day_revenue'];
+        } else {
+            $day_rev = $day_rev[0]['Day_report']['day_revenue'];
+        }
 
         $week_rev = $this->custom($query_week);
         if (!$week_rev) {
             $week_rev = 0;
-        } else $week_rev = $week_rev[0]['Week_report']['week_revenue'];
+        } else {
+            $week_rev = $week_rev[0]['Week_report']['week_revenue'];
+        }
 
         $month_rev = $this->custom($query_month);
         if (!$month_rev) {
             $month_rev = 0;
-        } else $month_rev = $month_rev[0]['Month_report']['month_revenue'];
+        } else {
+            $month_rev = $month_rev[0]['Month_report']['month_revenue'];
+        }
 
         return [$day_rev, $week_rev, $month_rev];
 
@@ -249,7 +254,7 @@ class Admin extends VanillaModel
 
     public function getRequests()
     {
-        $query = "SELECT * from importment_requests";
+        $query = "SELECT * from importment_requests where `status` = 0";
         return $this->custom($query);
     }
 
@@ -266,6 +271,32 @@ class Admin extends VanillaModel
             `request_id` = {$id}) as request_detail");
         return $items;
     }
+
+    public function processRequest($type, $list, $request_id)
+    {
+        if ($type == 0) {
+            $this->custom("UPDATE `importment_requests` SET `status` = 1 where `request_id` = {$request_id}");
+
+        } else {
+            foreach ($list as $item) {
+                $this->custom("UPDATE `ingredients` SET `quantity` = `quantity` + {$item[1]} where `ingredient_id` = {$item[0]}");
+            }
+            $this->custom("UPDATE `importment_requests` SET `status` = 1 where `request_id` = {$request_id}");
+        }
+    }
+
+    // public function import($id, $qty) {
+    //     if($type == 0) {
+    //         $this->update("UPDATE `importment_requests` SET `status` = 1 where `request_id` = {$request_id}");
+
+    //     }
+    //     else {
+    //         foreach($list as $item) {
+    //             $this->update("UPDATE `ingredients` SET `quantity` = `quantity` + {$item['qty']} where `ingredient_id` = {$item['id']}");
+    //         }
+    //         $this->update("UPDATE `importment_requests` SET `status` = 1 where `request_id` = {$request_id}");
+    //     }
+    // }
 
     public function checkAdmin()
     {

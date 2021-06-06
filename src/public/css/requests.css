@@ -1,6 +1,8 @@
 th,
 td {
     color: white;
+    align-items: center;
+    text-align: center;
 }
 
 * {
@@ -14,4 +16,38 @@ table {
 .request-detail {
     padding: 30px 100px;
     min-height: 70vh;
+}
+
+.requests {
+    min-height: 70vh;
+    padding: 30px 100px;
+}
+
+.title-request {
+    background-color: #e67e22;
+    color: white;
+    border: solid 1px white;
+}
+
+.request-row {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: solid 1px white;
+}
+
+.request-row:hover {
+    background-color: #e67e22 !important;
+    color: white !important;
+}
+
+.input {
+    width: 20px;
+}
+
+
+/* FOR CHECK MARK */
+
+.input[type="checkbox"] {
+    height: 20px !important;
+    width: 20px !important;
+    background-color: #e67e22 !important;
 }
