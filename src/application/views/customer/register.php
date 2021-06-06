@@ -11,8 +11,8 @@
         <input type="text" name="address" size="50" />
         <label for="phone">Phone:</label>
         <input type="text" name="phone" size="50" />
-        <br>
-        <br>
+        <br />
+        <br />
         <input type="submit" name="submit" value="Submit" />
         <input type="reset" value="Reset">
     </form>
