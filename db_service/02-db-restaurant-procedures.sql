@@ -1,3 +1,5 @@
+USE restaurant;
+
 DELIMITER $$
 
 CREATE PROCEDURE add_new_order(IN _customer_id INT, OUT _em_id INT, OUT _order_id INT)
