@@ -33,7 +33,7 @@
         <nav class="navbar-container container">
             <a href="/" class="home-link">
                 <div class="logo-div">
-                    <img src="../img/fflogo.png" alt="Omnifood logo" class="logo inline-element">
+                    <img src="../img/fflogo.png" class="logo inline-element">
                     <h3 class="logo inline-element title text-title">SE Restaurant</h3>
                 </div>
             </a>
@@ -48,8 +48,10 @@
                     <li class="navbar-item"><a class="navbar-link_customer" href="/">Menu</a></li>
                     <?php
                     if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
-                        if (isset($_SESSION['isEmployee']) && $_SESSION['isEmployee'] === true)
+                        if (isset($_SESSION['isEmployee']) && $_SESSION['isEmployee'] === true) {
+                            echo "<li class='navbar-item'><a href='#' class='navbar-link_customer'><i class='fas fa-user-circle icon-small'></i>Hi, {$_SESSION['username']}</a></li>";
                             echo "<li class='navbar-item'><a class='navbar-link_customer' href='/employees/logout'>Logout</a></li>";
+                        }
                         else
                             echo "<li class='navbar-item'><a class='navbar-link_customer' href='/customer/logout'>Logout</a></li>";
                     } else

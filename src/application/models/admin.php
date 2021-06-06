@@ -262,6 +262,11 @@ class Admin extends VanillaModel
         return new adminData($revenues_, $difference[0], $difference[1], $best_sellers_, $favourite_customers_);
     }
 
+    public function getRequests() {
+        $query = "SELECT * from importment_requests";
+        return $this->custom($query);
+    }
+
     public function checkAdmin()
     {
         if (isset($_SESSION["isManager"]) && $_SESSION["isManager"] === true) {
