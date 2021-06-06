@@ -61,6 +61,8 @@ class Product extends VanillaModel
             }
             return true;
         }
+
+        return false;
     }
 
     public function get_best_sellers()

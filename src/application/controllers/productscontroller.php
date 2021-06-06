@@ -5,7 +5,8 @@ class ProductsController extends VanillaController
     function index()
     {
         session_start();
-
+        // echo "Login status: " . $_SESSION['loggedIn'];
+        // echo "Boolean echo: " . true;
         $best_sellers = $this->Product->get_best_sellers();
         if ($best_sellers)
             $this->setTemplateVariable('best_sellers', $best_sellers);
@@ -153,6 +154,7 @@ class ProductsController extends VanillaController
                             unset($products);
                             unset($_SESSION["cart_item"]);
                             unset($_SESSION["item_count"]);
+                            $_SESSION["loggedIn"] = true;
                         } else
                             http_response_code(500);
                     }
