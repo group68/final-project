@@ -1,13 +1,16 @@
 function formValidation() {
   let uid = document.registration.username;
-  let passid = document.registration.passid;
+  let passid = document.registration.password;
   let uname = document.registration.name;
+  let address = document.registration.address;
   let phone = document.registration.phone;
   if (validUsername(uid)) {
     if (validPass(passid)) {
       if (validName(uname)) {
-        if (validPhone(phone)) {
-          return true;
+        if (validAddress(address)) {
+          if (validPhone(phone)) {
+            return true;
+          }
         }
       }
     }
@@ -37,6 +40,11 @@ function validPass(passid) {
 
 function validName(uname) {
   let letters = /^[A-Za-z]+$/;
+  if (uname.value.length == 0) {
+    alert("Name should not be empty");
+    uname.focus();
+    return false;
+  }
   if (uname.value.match(letters)) {
     return true;
   } else {
@@ -52,9 +60,15 @@ function validAddress(uadd) {
     uadd.focus();
     return false;
   }
+  return true;
 }
 
 function validPhone(phone) {
+  if (phone.value.length == 0) {
+    alert("Phone must not be blank!");
+    phone.focus();
+    return false;
+  }
   const phoneRegex =
     /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
   if (!phoneRegex.test(String(phone.value).toLowerCase())) {
@@ -62,4 +76,5 @@ function validPhone(phone) {
     phone.focus();
     return false;
   }
+  return true;
 }

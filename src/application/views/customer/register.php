@@ -1,4 +1,5 @@
 <div class="content" style="padding: 15%;">
+    <?php echo $html->includeJsDeffered("form-valid"); ?>
     <form name="registration" onsubmit="return formValidation();" action="/customer/register" method="POST">
         <label for="username">Username</label>
         <input text type="text" name="username" size="12" />
@@ -10,6 +11,8 @@
         <input type="text" name="address" size="50" />
         <label for="phone">Phone:</label>
         <input type="text" name="phone" size="50" />
+        <br>
+        <br>
         <input type="submit" name="submit" value="Submit" />
         <input type="reset" value="Reset">
     </form>
