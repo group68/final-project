@@ -62,4 +62,55 @@ class Product extends VanillaModel
             return true;
         }
     }
+
+    public function get_best_sellers()
+    {
+        //return the best sellers of restaurant for the last 7 days
+        $best_sellers_query = "SELECT * FROM `products`
+                                INNER JOIN( 
+                                    SELECT oi.product_id AS product_id,
+                                           SUM(oi.quantity) AS purchase_count
+                                    FROM
+                                        order_items AS oi
+                                    INNER JOIN `orders` AS o
+                                    ON oi.order_id = o.order_id
+                                    WHERE TIMESTAMPDIFF(DAY, o.created_at, NOW()) <= 7
+                                    GROUP BY oi.product_id) AS a
+                                    ON products.product_id = a.product_id
+                                    ORDER BY a.purchase_count DESC
+                                    LIMIT 5;";
+
+        $best_sellers = $this->custom($best_sellers_query);
+        // console_log($best_sellers);
+        if ($best_sellers)
+            return $best_sellers;
+        else
+            return false;
+    }
+
+    public function get_history($cus_id)
+    {
+        //return the mostly bought items of a customer
+        $history_query = "SELECT * FROM `products`
+                            INNER JOIN( 
+                                SELECT oi.product_id AS product_id,
+                                    SUM(oi.quantity) AS purchase_count
+                                FROM
+                                    order_items AS oi
+                                INNER JOIN `orders` AS o
+                                ON oi.order_id = o.order_id
+                                WHERE TIMESTAMPDIFF(DAY, o.created_at, NOW()) <= 7
+                                AND o.customer_id = $cus_id
+                                GROUP BY oi.product_id) AS a
+                                ON products.product_id = a.product_id
+                                ORDER BY a.purchase_count DESC
+                                LIMIT 5;";
+
+        $history = $this->custom($history_query);
+
+        if ($history)
+            return $history;
+        else
+            return false;
+    }
 }
