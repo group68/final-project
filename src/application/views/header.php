@@ -12,6 +12,7 @@
     <?php echo $html->includeCss("common"); ?>
     <?php echo $html->includeCss("header"); ?>
     <?php echo $html->includeCss("footer"); ?>
+    <?php echo $html->includeCss("searchbar"); ?>
 
     <?php echo $html->includeJsDeffered("header"); ?>
 
@@ -51,13 +52,15 @@
                         if (isset($_SESSION['isEmployee']) && $_SESSION['isEmployee'] === true) {
                             echo "<li class='navbar-item'><a href='#' class='navbar-link_customer'><i class='fas fa-user-circle icon-small'></i>Hi, {$_SESSION['username']}</a></li>";
                             echo "<li class='navbar-item'><a class='navbar-link_customer' href='/employees/logout'>Logout</a></li>";
-                        }
-                        else
+                        } else
                             echo "<li class='navbar-item'><a class='navbar-link_customer' href='/customer/logout'>Logout</a></li>";
                     } else
                         echo "<li class='navbar-item'><a class='navbar-link_customer' href='/customer/login'>Login</a></li>";
                     ?>
                     <li class="navbar-item"><a class="navbar-link_customer" href="/products/order"><i class="fas fa-cart-plus"></i><?php echo ' ' . $count_txt ?></a></li>
+                    <form id="demo-2">
+                        <input type="search" placeholder="Search">
+                    </form>
                 </ul>
             </div>
         </nav>
