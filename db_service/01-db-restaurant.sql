@@ -729,8 +729,12 @@ DROP TABLE IF EXISTS
 CREATE TABLE `importment_requests`(
     `request_id` INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `created_by` INT UNSIGNED NOT NULL,
-    `created_at` DATETIME NOT NULL
+    `created_at` DATETIME NOT NULL DEFAULT NOW()
 );
+LOCK TABLE `importment_requests` WRITE;
+INSERT INTO `importment_requests`(`request_id`, `created_by`) VALUES (0, 2), (0, 3), (0,2);
+UNLOCK TABLES;
+
 
 
 
@@ -747,6 +751,10 @@ CREATE TABLE `import_items`(
     FOREIGN KEY(`request_id`) REFERENCES `importment_requests`(`request_id`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(`ingredient_id`) REFERENCES `ingredients`(`ingredient_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = INNODB; 
+
+LOCK TABLE `import_items` WRITE;
+INSERT INTO `import_items`(`request_id`, `ingredient_id`, `quantity`, `unit_price`) VALUES (1, 1, 10, 5000), (1, 2, 5, 5000), (2,5,5,5000), (2,6,5,5000), (2,7,5,5000), (3,5,5,6000), (3,8,5,6000);
+UNLOCK TABLES;
 
 -- DUMP OF TABLE product_include --
 
