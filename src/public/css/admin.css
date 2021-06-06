@@ -783,6 +783,7 @@ a,
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    padding: 80px 30px;
 }
 
 #customers td,

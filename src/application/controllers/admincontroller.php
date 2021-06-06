@@ -13,17 +13,12 @@ class AdminController extends VanillaController
             header("Location: /employees/login");
             exit();
         }
-        $this->doNotRenderHeader = true;
+        // $this->doNotRenderHeader = true;
 
         // $products = $this->Product->custom("SELECT `product_id`, `NAME` FROM `products`");
 
         // $this->set_template_variable('admin', );
         $admindata = $this->Admin->getData();
-        // $revenues = [130000000, 7890000000, 9099999999];
-        // $increasing_amount = [7, 8, 9];
-        // $decreasing_amount = [0, 0, 0];
-        // $this->set_template_variable('revenues', $revenues);
-        // $this->set_template_variable('increasing_amount', $increasing_amount);
         $this->setTemplateVariable('admindata', $admindata);
         return true;
     }
@@ -39,6 +34,34 @@ class AdminController extends VanillaController
         // }
         
     }
+
+    function requests() {
+        session_start();
+        if (!$this->Admin->checkAdmin()) {
+            header("Location: /employees/login");
+            exit();
+        }
+        $requests = $this->Admin->getRequests();
+       
+        $this->setTemplateVariable('requests', $requests);
+        return true;
+        return true;
+    }
+
+    function logOut() {
+        session_start();
+        if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
+            $_SESSION["loggedIn"] = false;
+            $_SESSION["isEmployee"] = false;
+            $_SESSION["isManager"] = false;
+            $_SESSION["id"] = "";
+            $_SESSION["username"] = "";
+        }
+        header("location: /employees/login");
+        exit();
+    }
+
+
    
     function afterAction()
     {
