@@ -26,32 +26,23 @@ class Admin extends VanillaModel
 
     public function getBestSeller()
     {
-        $best_sellers_query = "SELECT
-        *
-    FROM
-        products
-    INNER JOIN(
-        SELECT
-            oi.product_id AS `product_id`,
-            SUM(oi.quantity) AS `purchase_count`
-        FROM
-            `order_items` AS oi
-        INNER JOIN `orders` AS o
-        ON
-            oi.order_id = o.order_id
-        WHERE
-            TIMESTAMPDIFF(DAY, o.created_at, NOW()) <= 7
-        GROUP BY
-            oi.product_id
-        ORDER BY
-            SUM(oi.quantity)) AS a
-        ON
-            products.product_id = a.product_id limit 5";
+        $best_sellers_query = "SELECT * FROM `products`
+        INNER JOIN( 
+            SELECT oi.product_id AS product_id,
+                   SUM(oi.quantity) AS purchase_count
+            FROM
+                order_items AS oi
+            INNER JOIN `orders` AS o
+            ON oi.order_id = o.order_id
+            WHERE TIMESTAMPDIFF(DAY, o.created_at, NOW()) <= 7
+            GROUP BY oi.product_id) AS a
+            ON products.product_id = a.product_id
+            ORDER BY a.purchase_count DESC
+            LIMIT 5;";
 
         $best_sellers = $this->custom($best_sellers_query);
         // console_log($best_sellers);
         return $best_sellers;
-
     }
 
     public function getFavouriteCustomers()
@@ -82,7 +73,6 @@ class Admin extends VanillaModel
         $cust = $this->custom($query);
         // console_log($best_sellers);
         return $cust;
-
     }
 
     public function getRevenue()
@@ -206,20 +196,17 @@ class Admin extends VanillaModel
         $day_rev = $this->custom($query_day);
         if (!$day_rev) {
             $day_rev = 0;
-        }
-        else $day_rev = $day_rev[0]['Day_report']['day_revenue'];
+        } else $day_rev = $day_rev[0]['Day_report']['day_revenue'];
 
         $week_rev = $this->custom($query_week);
         if (!$week_rev) {
             $week_rev = 0;
-        }
-        else $week_rev = $week_rev[0]['Week_report']['week_revenue'];
+        } else $week_rev = $week_rev[0]['Week_report']['week_revenue'];
 
         $month_rev = $this->custom($query_month);
         if (!$month_rev) {
             $month_rev = 0;
-        }
-        else $month_rev = $month_rev[0]['Month_report']['month_revenue'];
+        } else $month_rev = $month_rev[0]['Month_report']['month_revenue'];
 
         return [$day_rev, $week_rev, $month_rev];
 
@@ -242,15 +229,13 @@ class Admin extends VanillaModel
                     $retval_inc[$key] = ($diff) / $prev_reves[$key] * 100;
                     $retval_dec[$key] = 0;
                 }
-            }
-            else {
+            } else {
                 $retval_inc[$key] = 0;
                 $retval_dec[$key] = ($diff) / $prev_reves[$key] * 100;
             }
         }
 
         return [$retval_inc, $retval_dec];
-
     }
 
     public function getData()
@@ -262,12 +247,14 @@ class Admin extends VanillaModel
         return new adminData($revenues_, $difference[0], $difference[1], $best_sellers_, $favourite_customers_);
     }
 
-    public function getRequests() {
+    public function getRequests()
+    {
         $query = "SELECT * from importment_requests";
         return $this->custom($query);
     }
 
-    public function getRequestDetail($id) {
+    public function getRequestDetail($id)
+    {
         $request_id = $this->sanitize($id);
         $items = $this->custom("SELECT * FROM
         (SELECT

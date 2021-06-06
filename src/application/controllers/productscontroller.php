@@ -6,6 +6,15 @@ class ProductsController extends VanillaController
     {
         session_start();
 
+        $best_sellers = $this->Product->get_best_sellers();
+        if ($best_sellers)
+            $this->setTemplateVariable('best_sellers', $best_sellers);
+
+        if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
+            $history = $this->Product->get_history($_SESSION['id']);
+            if ($history)
+                $this->setTemplateVariable('history', $history);
+        }
         // $products = $this->Product->custom("SELECT `product_id`, `NAME` FROM `products`");
         $categories = $this->Product->categories;
         $imgs = $this->Product->getCategoryImg();
@@ -122,6 +131,7 @@ class ProductsController extends VanillaController
                     if (isset($_SESSION['cart_item'])) {
                         $_SESSION['item_count'] -= $_SESSION['cart_item'][$id];
                         unset($_SESSION['cart_item'][$id]);
+                        unset($products[$id]);
                         if (empty($_SESSION['cart_item']))
                             unset($_SESSION['cart_item']);
                     }
@@ -140,6 +150,7 @@ class ProductsController extends VanillaController
                         }
                         if ($this->Product->submitOrder($_SESSION["id"], $products)) {
                             // echo "hehe enter here <br/>";
+                            unset($products);
                             unset($_SESSION["cart_item"]);
                             unset($_SESSION["item_count"]);
                         } else
