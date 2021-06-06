@@ -1,0 +1,17 @@
+th,
+td {
+    color: white;
+}
+
+* {
+    color: white;
+}
+
+table {
+    padding: 50px 50px;
+}
+
+.request-detail {
+    padding: 30px 100px;
+    min-height: 70vh;
+}

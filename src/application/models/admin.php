@@ -267,6 +267,19 @@ class Admin extends VanillaModel
         return $this->custom($query);
     }
 
+    public function getRequestDetail($id) {
+        $request_id = $this->sanitize($id);
+        $items = $this->custom("SELECT * FROM
+        (SELECT
+            import_items.request_id as `request_id`, ingredients.ingredient_id as `id`, ingredients.name as `name`, import_items.unit_price as `unit_price`, import_items.quantity as `qty_request`, ingredients.quantity as `qty_remain`
+        FROM
+            ingredients
+        INNER JOIN `import_items` ON ingredients.ingredient_id = import_items.ingredient_id
+        WHERE
+            `request_id` = {$id}) as request_detail");
+        return $items;
+    }
+
     public function checkAdmin()
     {
         if (isset($_SESSION["isManager"]) && $_SESSION["isManager"] === true) {
