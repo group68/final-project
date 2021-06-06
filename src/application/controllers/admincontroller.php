@@ -45,7 +45,18 @@ class AdminController extends VanillaController
        
         $this->setTemplateVariable('requests', $requests);
         return true;
+    }
+
+    function requestDetail($id = null) {
+        session_start();
+        if (!$this->Admin->checkAdmin()) {
+            header("Location: /employees/login");
+            exit();
+        }
+        $request_detail = $this->Admin->getRequestDetail($id);
+        $this->setTemplateVariable('request_detail', $request_detail);
         return true;
+
     }
 
     function logOut() {
