@@ -17,19 +17,21 @@
     <?php echo $html->includeJsDeffered("header"); ?>
 
     <?php
-    foreach (${Template::CUSTOM_CSS_FILES} as $cssFile) {
-        echo $html->includeCss($cssFile) . "\n";
-    }
-    ?>
+foreach (${Template::CUSTOM_CSS_FILES} as $cssFile) {
+    echo $html->includeCss($cssFile) . "\n";
+}
+?>
 </head>
 
 <body>
     <?php
-    if (isset($_SESSION['item_count']))
-        $count_txt = $_SESSION['item_count'];
-    else
-        $count_txt = 'CART';
-    ?>
+if (isset($_SESSION['item_count'])) {
+    $count_txt = $_SESSION['item_count'];
+} else {
+    $count_txt = 'CART';
+}
+
+?>
     <div id="navbar">
         <nav class="navbar-container container">
             <a href="/" class="home-link">
@@ -48,16 +50,21 @@
                     <li class="navbar-item"><a class="navbar-link_customer" href="/">Home</a></li>
                     <li class="navbar-item"><a class="navbar-link_customer" href="/">Menu</a></li>
                     <?php
-                    if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
-                        if (isset($_SESSION['isEmployee']) && $_SESSION['isEmployee'] === true) {
-                            echo "<li class='navbar-item'><a href='#' class='navbar-link_customer'><i class='fas fa-user-circle icon-small'></i>Hi, {$_SESSION['username']}</a></li>";
-                            echo "<li class='navbar-item'><a class='navbar-link_customer' href='/employees/logout'>Logout</a></li>";
-                        } else
-                            echo "<li class='navbar-item'><a class='navbar-link_customer' href='/customer/logout'>Logout</a></li>";
-                    } else
-                        echo "<li class='navbar-item'><a class='navbar-link_customer' href='/customer/login'>Login</a></li>";
-                    ?>
-                    <li class="navbar-item"><a class="navbar-link_customer" href="/products/order"><i class="fas fa-cart-plus"></i><?php echo ' ' . $count_txt ?></a></li>
+if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
+    if (isset($_SESSION['isEmployee']) && $_SESSION['isEmployee'] === true) {
+        echo "<li class='navbar-item'><a href='#' class='navbar-link_customer'><i class='fas fa-user-circle icon-small'></i>Hi, {$_SESSION['username']}</a></li>";
+        echo "<li class='navbar-item'><a class='navbar-link_customer' href='/employees/logout'>Logout</a></li>";
+    } else {
+        echo "<li class='navbar-item'><a class='navbar-link_customer' href='/customer/logout'>Logout</a></li>";
+    }
+
+} else {
+    echo "<li class='navbar-item'><a class='navbar-link_customer' href='/customer/login'>Login</a></li>";
+}
+
+?>
+                    <li class="navbar-item"><a class="navbar-link_customer" href="/products/order"><i
+                                class="fas fa-cart-plus mr-5"></i><?php echo ' ' . $count_txt ?></a></li>
                     <form id="demo-2">
                         <input type="search" placeholder="Search">
                     </form>

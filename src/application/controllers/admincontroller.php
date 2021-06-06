@@ -1,3 +1,4 @@
+
 <?php
 
 class AdminController extends VanillaController
@@ -53,6 +54,7 @@ class AdminController extends VanillaController
             header("Location: /employees/login");
             exit();
         }
+
         $request_detail = $this->Admin->getRequestDetail($id);
         $this->setTemplateVariable('request_detail', $request_detail);
         return true;
@@ -69,6 +71,45 @@ class AdminController extends VanillaController
             $_SESSION["username"] = "";
         }
         header("location: /employees/login");
+        exit();
+    }
+
+    function processRequest() {
+        function console_log_($output, $with_script_tags = true)
+    {
+        $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
+            ');';
+        if ($with_script_tags) {
+            $js_code = '<script>' . $js_code . '</script>';
+        }
+        echo $js_code;
+    }
+        echo "This handle the form <br/>";
+        console_log_($_POST['id']);
+        $request_id = $_POST['id'];
+        $param_list = [];
+        if(isset($_POST['cat'])) {
+            $params = $_POST['cat'];
+            console_log_($params);
+            foreach($params as $param) {
+                $parts = [];
+                $tok = strtok($param, ",");
+                while ($tok !== false) {
+                    $parts[] = $tok;
+                    $tok = strtok(",");
+                    }
+                console_log_($parts);
+                $param_list[] = $parts;
+            }
+            $this->Admin->processRequest(1, $param_list, $request_id);
+            // $param = strtok($params[0], ",");
+            // console_log_($param);
+        }
+        else {
+            $this->Admin->processRequest(0, null, $request_id);
+        }
+        // $this->Admin->processRequest($type, $list, $request_id);
+        header("location: /admin/requests");
         exit();
     }
 

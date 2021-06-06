@@ -729,7 +729,8 @@ DROP TABLE IF EXISTS
 CREATE TABLE `importment_requests`(
     `request_id` INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `created_by` INT UNSIGNED NOT NULL,
-    `created_at` DATETIME NOT NULL DEFAULT NOW()
+    `created_at` DATETIME NOT NULL DEFAULT NOW(),
+    `status` INT UNSIGNED NOT NULL DEFAULT 0
 );
 LOCK TABLE `importment_requests` WRITE;
 INSERT INTO `importment_requests`(`request_id`, `created_by`) VALUES (0, 2), (0, 3), (0,2);
