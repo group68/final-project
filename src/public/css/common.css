@@ -155,7 +155,9 @@ a:hover {
 
 .btn:link,
 .btn:visited,
-input[type="submit"] {
+input[type="submit"],
+input[type="reset"] {
+    
     display: inline-block;
     padding: 10px 30px;
     font-weight: 300;
@@ -188,7 +190,9 @@ input[type="reset"] {
 
 .btn-full:link,
 .btn-full:visited,
-input[type="submit"] {
+input[type="submit"],
+input[type="reset"] {
+    
     background-color: #e67e22;
     border: 1px solid #e67e22;
     color: #fff;
@@ -213,7 +217,9 @@ input[type="reset"] {
 .btn:active,
 .btn:hover,
 input[type="submit"]:active,
-input[type="submit"]:hover {
+input[type="submit"]:hover,
+input[type="reset"]:active,
+input[type="reset"]:hover {
     background-color: #cf6d17;
 }
 
@@ -644,6 +650,7 @@ cite img {
 input[type="text"],
 input[type="password"],
 input[type="email"],
+input[type="password"],
 select,
 textarea {
     width: 100%;
@@ -861,7 +868,8 @@ footer p {
 
 .btn:link,
 .btn:visited,
-input[type="submit"] {
+input[type="submit"],
+input[type="reset"] {
     display: inline-block;
     padding: 10px 30px;
     font-weight: 300;
@@ -873,7 +881,9 @@ input[type="submit"] {
 
 .btn-full:link,
 .btn-full:visited,
-input[type="submit"] {
+input[type="submit"],
+input[type="reset"] {
+    
     background-color: #e67e22;
     border: 1px solid #e67e22;
     color: #fff;
@@ -889,7 +899,9 @@ input[type="submit"] {
 .btn:active,
 .btn:hover,
 input[type="submit"]:active,
-input[type="submit"]:hover {
+input[type="submit"]:hover,
+input[type="reset"]:active,
+input[type="reset"]:hover {
     background-color: #cf6d17;
 }
 
