@@ -75,14 +75,37 @@ class EmployeesController extends VanillaController {
         session_start();
 
         if (isset($_SESSION['isEmployee']) && $_SESSION['isEmployee'] === true) {
+            $complete = "";
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
+                $items = $_POST['quantity'];
+                $flag = 0;
+                foreach ($items as $item) {
+                    if ($item > 0) {
+                        $flag = 1;
+                        break;
+                    }
+                }
+                if ($flag == 0) {
+                    $complete = "You can't order nothing!\n";
+                    $this->setTemplateVariable('complete', $complete);
+                } else {
+                    $prices = $_POST['price'];
+                    if ($this->Employee->importRequest($_SESSION["id"], $items, $prices)) {
+                        $complete = "Order completed!";
+                        $this->setTemplateVariable('complete', $complete);
+                    } else {
+                        http_response_code(500);
+                    }
+                }
             }
             $ingredients = $this->Employee->custom("SELECT * FROM `ingredients`");
 
             $this->setTemplateVariable('ingredients', $ingredients);
 
             return true;
+        } else {
+            header("location: /employees/login");
+            exit();
         }
     }
 
