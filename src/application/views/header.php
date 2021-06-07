@@ -10,6 +10,7 @@
     <script src="https://kit.fontawesome.com/9f89debcba.js" crossorigin="anonymous"></script>
 
     <?php echo $html->includeCss("common"); ?>
+    <?php echo $html->includeCss("vendor/grid"); ?>
     <?php echo $html->includeCss("header"); ?>
     <?php echo $html->includeCss("footer"); ?>
     <?php echo $html->includeCss("searchbar"); ?>
@@ -36,7 +37,7 @@ if (isset($_SESSION['item_count'])) {
         <nav class="navbar-container container">
             <a href="/" class="home-link">
                 <div class="logo-div">
-                    <img src="../img/fflogo.png" class="logo inline-element">
+                    <img src="/img/fflogo.png" class="logo inline-element">
                     <h3 class="logo inline-element title text-title">SE Restaurant</h3>
                 </div>
             </a>
