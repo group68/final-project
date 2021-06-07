@@ -124,6 +124,9 @@ class EmployeesController extends VanillaController {
                 header("location: /");
                 exit;
             }
+        } else {
+            header("location: /employees/login");
+            exit();
         }
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (isset($_POST['orders'])) {
@@ -139,11 +142,32 @@ class EmployeesController extends VanillaController {
             }
         }
         $id = $_SESSION['id'];
+        $products = array();
         $orders = $this->Employee->custom("SELECT * FROM `orders` WHERE `status` = 0 AND `employee_id` = $id");
-
+        if ($orders) {
+            // do stuff here
+        }
         $this->setTemplateVariable('orders', $orders);
 
         return true;
+    }
+
+
+    function orderDetail($id = null) {
+        session_start();
+        if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
+            if (isset($_SESSION["isEmployee"]) && $_SESSION["isEmployee"] === true) {
+                // do work
+                $items = $this->Employee->getOrderDetail($id);
+                $this->setTemplateVariable('items',$items);
+                return true;
+            } else {
+                header("Location: /");
+                exit();
+            }
+        } else {
+            header("Location: /employees/login");
+        }
     }
 
     function logOut() {

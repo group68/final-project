@@ -16,8 +16,8 @@ class Employee extends VanillaModel {
         $req_id = $row['req_id'];
         $count = count($items);
         for ($i = 1; $i <= $count; $i++) {
-            $item = $items[$i-1];
-            $price = $prices[$i-1];
+            $item = $items[$i - 1];
+            $price = $prices[$i - 1];
             if ($item <= 0) {
                 continue;
             }
@@ -40,5 +40,15 @@ class Employee extends VanillaModel {
             }
         }
         return true;
+    }
+
+
+    public function getOrderDetail($id) {
+        $id = $this->sanitize($id);
+        $items = $this->custom("SELECT * FROM
+        (SELECT products.product_id as `product_id`, `order_id`, `quantity`, `price`, `name`  FROM `order_items`
+            INNER JOIN `products` ON (order_items.product_id = products.product_id)
+            WHERE `order_id` = $id) AS order_detail;");
+        return $items;
     }
 }

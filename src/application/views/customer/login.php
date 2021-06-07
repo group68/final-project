@@ -1,4 +1,4 @@
-<div style="padding: 5%;">
+<div style="padding: 15%;">
     <form action="/customer/login" method="post">
         <h1>Login form</h1>
         <br>
