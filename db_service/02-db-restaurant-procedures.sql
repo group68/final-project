@@ -28,4 +28,17 @@ CREATE PROCEDURE add_new_order(IN _customer_id INT, OUT _em_id INT, OUT _order_i
     SELECT LAST_INSERT_ID() INTO _order_id;
     END$$
 
+CREATE PROCEDURE add_new_import(IN _employee_id INT, OUT _req_id INT)
+    BEGIN
+
+    INSERT INTO `importment_requests`(
+                `created_by`
+            )
+            VALUES(
+                _employee_id
+            );
+    
+    SELECT LAST_INSERT_ID() INTO _req_id;
+    END$$
+
 DELIMITER ;

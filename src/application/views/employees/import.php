@@ -1,30 +1,23 @@
-<div style="padding: 5%;">
-<div>
-    <!-- <form method="POST">
-        <?php foreach ($ingredients as $ingredient) : ?>
+<div style="padding: 15%;">
+    <div>
+
+        <? if (isset($complete)) {
+            echo $complete;
+        } ?>
+
+        <?php foreach ($ingredients as $ingredient) :
+            $current = $ingredient['Ingredient'];
+        ?>
             <div class="ingredient">
-                <?php
-                $current = $ingredient['Ingredient'];
-                echo $current['ingredient_id'] . "\t" . $current['name'] . "\t" . $current['quantity'] . "\t" . $current['price_unit'];
-                echo '<input type="checkbox" value ="' . $current['ingredient_id'] . '" name = "id[]"/>';
-                echo '<input type="number" min="0" pattern="\d*" name = "quantity"/>';
-                echo '<br>'; ?>
-
+                <form method="post">
+                    <div><?php echo $current["name"]; ?></div>
+                    <div><?php echo "$" . $current["price_unit"]; ?></div>
+                    <input type="number" name="quantity[]" value="0" min="0" step="1" size="2" />
+                    <input type="hidden" name ="price[]" value="<?echo $current["price_unit"]?>"/>
+                <?php endforeach ?>
+                <br>
+                <input type="submit" value="Order ingredients" />
+                </form>
             </div>
-        <?php endforeach ?>
-        <br><input type="submit" value="Click To Submit">
-        <input type="reset" value="Reset">
-    </form> -->
-
-    <?php foreach ($ingredients as $ingredient) :
-        $current = $ingredient['Ingredient'];
-    ?>
-        <div class="ingredient">
-            <form method="post">
-                <div class="product-tile-footer">
-                    <div class="product-title"><?php echo $current["name"]; ?></div>
-                    <div class="product-price"><?php echo "$" . $current["price_unit"]; ?></div>
-                    <div class="cart-action"><input type="text" class="product-quantity" name="quantity" value="1" size="2" /><input type="submit" value="Add to Cart" class="btnAddAction" /></div>
-                </div>
-            <?php endforeach ?>
-        </div>
+    </div>
+</div>
