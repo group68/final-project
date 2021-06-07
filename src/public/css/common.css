@@ -1,3 +1,13 @@
+:root {
+    --navbar-bg-color: hsl(33, 91%, 58%);
+    --navbar-text-color: hsl(0, 33%, 97%);
+    --navbar-text-color-focus: white;
+    --navbar-bg-contrast: hsl(32, 100%, 49%);
+    --footer-height: 30px;
+    --navbar-height: 64px;
+    --primary-color: #e67e22;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +16,7 @@
 
 html,
 body {
-    background-color: #fff;
+    background-color: #f4f3f3;
     color: #555;
     font-family: "Lato", sans-serif, "Arial";
     font-weight: 300;
@@ -209,7 +219,7 @@ input[type="reset"] {
     margin-right: 15px;
     font-size: 15px;
     font-weight: 500;
-    width: 120px;
+    /* width: 120px; */
 }
 
 input[type="number"] {
@@ -895,6 +905,7 @@ footer p {
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
     transition: all 0.5s;
     text-align: center;
+    height: 45vh;
 }
 
 .card:hover {
@@ -943,6 +954,12 @@ footer p {
     background: radial-gradient(#f588d8, #c0a3e5);
 }
 
+.card-6 {
+    background-color: transparent;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--primary-color);
+}
+
 @media (max-width: 1600px) {
     .card-container {
         justify-content: center;
@@ -972,8 +989,22 @@ footer p {
     margin-bottom: 15px;
 }
 
+.mlr-5 {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.plr-5 {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
+
 .p-base {
     padding: 32px 80px;
+}
+
+.large-p-base {
+    padding: 10vh 20vw;
 }
 
 .plr-15 {
@@ -994,6 +1025,11 @@ footer p {
     position: relative;
     margin-bottom: 5%;
     min-height: 70vh;
+    padding-bottom: 30px;
+    /* text-align: center; */
+}
+
+.text-center {
     text-align: center;
 }
 
@@ -1004,7 +1040,7 @@ footer p {
 }
 
 .round-border {
-    border-radius: 8px;
+    border-radius: 3%;
 }
 
 
@@ -1040,4 +1076,22 @@ footer p {
     text-align: left;
     background-color: #e67e22;
     color: white;
+}
+
+
+/* PRODUCTS */
+
+
+/* -------------------- */
+
+.bestseller-img {
+    max-width: 15vw;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.w-70 {
+    width: 70%;
 }
