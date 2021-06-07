@@ -1,4 +1,4 @@
-<div class="row body-container shadow-box p-base bg-blur round-border">
+<div class="row body-container shadow-box p-base bg-blur round-border" style="padding: 15%;">
     <div>
         <form action="/employees/login" method="post">
             <br>
