@@ -40,7 +40,8 @@ body {
     left: 0;
     right: 0;
     box-shadow: 0 2px 4px rgba(30, 107, 207, 0.15);
-    /* border-radius: 0 0 18px 18px; */
+    max-height: 30vh;
+    z-index: 1;
 }
 
 .navbar-container {
@@ -48,6 +49,8 @@ body {
     justify-content: space-between;
     height: 100%;
     align-items: center;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 .navbar-item {
