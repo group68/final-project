@@ -1,6 +1,6 @@
 <?php echo $html->includeCss("common"); ?>
 <?php echo $html->includeCss("admin"); ?>
-<?php echo $html->includeCss("requests"); ?>
+<?php echo $html->includeCss("orders"); ?>
 <?php
 function console_log($output, $with_script_tags = true) {
     $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
@@ -15,14 +15,15 @@ function console_log($output, $with_script_tags = true) {
 
 
 <?php console_log($items); ?>
-<div class="request-detail">
-    <div class="row">
+<div class="body-container p-base">
+    <div class="order-container">
+    <div class="row text-center">
         <h2>Order detail</h2>
         <p class="long-copy">
             Let see our Order detail
         </p>
     </div>
-    <table id="customers" class="plr-15 mt-15 shadow-box">
+    <table id="orders" class="plr-15 mt-15 shadow-box">
         <tr>
             <th>Order ID</th>
             <th>Product ID</th>
@@ -51,3 +52,4 @@ function console_log($output, $with_script_tags = true) {
 
     </form>
 </div>
+    </div>
