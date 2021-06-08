@@ -2,12 +2,19 @@
 
 class ProductsApiController extends ApiController
 {
-    function search()
+    function getSearchData()
     {
-        if (!isset($this->_requestData['q'])) {
-            return false;
+        $products = $this->Product->custom("SELECT `product_id`, `NAME` from `products`;");
+
+        if ($products === false) {
+            return array();
         }
 
-        return [1, 2, 3, $this->_requestData['q']];
+        $result = array();
+        foreach ($products as $product) {
+            $result[] = array('id' => $product['Product']['product_id'], 'name' => $product['Product']['NAME']);
+        }
+
+        return $result;
     }
 }

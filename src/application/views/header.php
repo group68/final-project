@@ -41,6 +41,18 @@ if (isset($_SESSION['item_count'])) {
                     <h3 class="logo inline-element title text-title">SE Restaurant</h3>
                 </div>
             </a>
+
+            <div class="search-container">
+                <input id="search-input" class="search-input" type="search" placeholder="Search">
+                <div id="search-result" class="search-result-container">
+                    <p href="">AAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+                    <a href="">B</a>
+                    <a href="">C</a>
+                    <a href="">D</a>
+                    <a href="">E</a>
+                </div>
+            </div>
+
             <button type="button" class="navbar-toggle" aria-label="Open navigation menu">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -67,12 +79,10 @@ if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
 ?>
                     <li class="navbar-item"><a class="navbar-link_customer" href="/products/order"><i
                                 class="fas fa-cart-plus mr-5"></i><?php echo ' ' . $count_txt ?></a></li>
-                    <form id="demo-2">
-                        <input type="search" placeholder="Search">
-                    </form>
+                    <!-- <form id="demo-2" onsubmit="event.preventDefault();">
+                        <input id="search-box" type="search" placeholder="Search">
+                    </form> -->
                 </ul>
             </div>
         </nav>
-
-
     </div>
