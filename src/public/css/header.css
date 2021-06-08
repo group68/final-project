@@ -32,7 +32,7 @@ body {
 
 #navbar {
     position: fixed;
-    /* height: var(--navbar-height); */
+    height: 20vh;
     /* background-color: var(--navbar-bg-color); */
     background-image: -webkit-gradient( linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.7))), url(../img/bg-admin.jpg);
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../img/bg-admin.jpg);
@@ -166,6 +166,8 @@ a::after {
 #navbar.opened .navbar-toggle .icon-bar:last-child {
     transform: rotate(-45deg);
 }
+
+
 
 .navbar-menu {
     position: fixed;
