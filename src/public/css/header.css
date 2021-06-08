@@ -167,8 +167,6 @@ a::after {
     transform: rotate(-45deg);
 }
 
-
-
 .navbar-menu {
     position: fixed;
     top: var(--navbar-height);
