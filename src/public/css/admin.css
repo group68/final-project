@@ -775,3 +775,7 @@ a,
 .show {
     display: block;
 }
+
+.card {
+    height: 100% !important;
+}

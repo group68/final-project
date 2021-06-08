@@ -16,7 +16,7 @@ function console_log($output, $with_script_tags = true)
 
 
 <?php console_log($request_detail);?>
-<div class="request-detail">
+<div class="requests">
     <div class="row">
         <h2>Importment request detail</h2>
         <p class="long-copy">

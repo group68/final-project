@@ -17,7 +17,7 @@ function console_log($output, $with_script_tags = true)
 <?php console_log($requests)?>
 
 <div class="row requests ">
-    <div class="row">
+    <div class="row mb-15">
         <h2>All requests you've not processed</h2>
         <p class="long-copy">
             Let import ingredients if needed. Of course, you can also reject request.
