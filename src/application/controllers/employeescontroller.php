@@ -53,13 +53,18 @@ class EmployeesController extends VanillaController {
                     $_SESSION["isEmployee"] = true;
                     $_SESSION["id"] = $query[0]['Employee']['employee_id'];
                     $_SESSION["username"] = $username;
+                    $msg = 'Login succeeded!';
+                    echo "<script type='text/javascript'>alert('$msg');</script>";
+
                     if ($query[0]['Employee']['is_manager']) {
                         $_SESSION["isManager"] = true;
-                        header("location: /admin");
+                        header("Refresh: 2 url=/admin", true);
+
                         exit();
                     } else {
                         $_SESSION["isManager"] = false;
-                        header("location: /employees/processOrder");
+                        header("Refresh: 2 url=/employees/processOrder", true);
+
                         exit();
                     }
                 }

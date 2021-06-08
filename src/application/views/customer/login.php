@@ -13,7 +13,10 @@
             <br />
             <br />
             <a href="/customer/register">Don't have an account? Click here to join with us!</a>
-            <? if (isset($err)) echo $err; ?>
+            <? if (isset($err)) {
+                echo '<br>';
+                echo "<p style='color:red;'>$err</p>"; 
+            }?>
         </form>
     </div>
 </div>
