@@ -69,6 +69,19 @@ class EmployeesController extends VanillaController {
     }
 
     function index() {
+        session_start();
+        if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
+            if (isset($_SESSION["isEmployee"]) && $_SESSION["isEmployee"] === true) {
+                //do work
+                return true;
+            } else {
+                header("Location: /");
+                exit();
+            }
+        } else {
+            header("Location: /employees/login");
+            exit();
+        }
     }
 
     function import() {
@@ -159,7 +172,7 @@ class EmployeesController extends VanillaController {
             if (isset($_SESSION["isEmployee"]) && $_SESSION["isEmployee"] === true) {
                 // do work
                 $items = $this->Employee->getOrderDetail($id);
-                $this->setTemplateVariable('items',$items);
+                $this->setTemplateVariable('items', $items);
                 return true;
             } else {
                 header("Location: /");
@@ -167,6 +180,7 @@ class EmployeesController extends VanillaController {
             }
         } else {
             header("Location: /employees/login");
+            exit();
         }
     }
 
@@ -188,5 +202,27 @@ class EmployeesController extends VanillaController {
 
 
     function afterAction() {
+    }
+
+    function viewstock() {
+        session_start();
+        if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
+            if (isset($_SESSION["isEmployee"]) && $_SESSION["isEmployee"] === true) {
+                // do work
+                $result = $this->Employee->custom("SELECT * FROM `ingredients`");
+                if (!$result) {
+                    http_response_code(403);
+                    exit();
+                }
+                $this->setTemplateVariable('items', $result);
+                return true;
+            } else {
+                header("Location: /");
+                exit();
+            }
+        } else {
+            header("Location: /employees/login");
+            exit();
+        }
     }
 }
