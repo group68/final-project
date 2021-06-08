@@ -42,8 +42,7 @@ CREATE TABLE `products`(
     NAME VARCHAR(100),
     `image_url` VARCHAR(100),
     `price` DOUBLE,
-    `category` INT,
-    FULLTEXT (`NAME`)
+    `category` INT
 )ENGINE = InnoDB;
 
 -- category
