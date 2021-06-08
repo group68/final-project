@@ -1,8 +1,6 @@
 <?php
-class CustomerController extends VanillaController
-{
-    function login()
-    {
+class CustomerController extends VanillaController {
+    function login() {
         session_start();
 
         // Define variables and initialize with empty values
@@ -35,8 +33,11 @@ class CustomerController extends VanillaController
                     $_SESSION["isCustomer"] = true;
                     $_SESSION["id"] = $query[0]['Customer']['customer_id'];
                     $_SESSION["username"] = $username;
+                    $msg = "Login succeeded!";
+                    echo "<script type='text/javascript'>alert('$msg');</script>";
 
-                    header('location: /');
+                    header("Refresh: 2 url=/", true);
+
                     exit;
                 }
             }
@@ -44,8 +45,7 @@ class CustomerController extends VanillaController
         return true;
     }
 
-    function logOut()
-    {
+    function logOut() {
         session_start();
         if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
             unset($_SESSION["loggedIn"]);
@@ -59,8 +59,7 @@ class CustomerController extends VanillaController
         exit();
     }
 
-    function register()
-    {
+    function register() {
         session_start();
         if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
             header("location: /");

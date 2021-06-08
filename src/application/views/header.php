@@ -53,7 +53,8 @@ if (isset($_SESSION['item_count'])) {
                     <?php
 if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
     if (isset($_SESSION['isEmployee']) && $_SESSION['isEmployee'] === true) {
-        echo "<li class='navbar-item'><a href='#' class='navbar-link_customer'><i class='fas fa-user-circle icon-small'></i>Hi, {$_SESSION['username']}</a></li>";
+        $username = htmlentities($_SESSION['username']);
+        echo "<li class='navbar-item'><a href='#' class='navbar-link_customer'><i class='fas fa-user-circle icon-small'></i>Hi, {$username}</a></li>";
         echo "<li class='navbar-item'><a class='navbar-link_customer' href='/employees/logout'>Logout</a></li>";
     } else {
         echo "<li class='navbar-item'><a class='navbar-link_customer' href='/customer/logout'>Logout</a></li>";
