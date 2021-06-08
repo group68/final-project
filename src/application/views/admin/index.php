@@ -1,3 +1,4 @@
+<?php echo $html->includeCss("admin"); ?>
 <div id="best-sellers-session" class="row best-sellers">
     <h2>BEST-SELLERS</h2>
     <p class="long-copy">

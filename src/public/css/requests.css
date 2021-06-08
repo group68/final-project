@@ -9,14 +9,10 @@ table {
     padding: 50px 50px;
 }
 
-.request-detail {
-    padding: 30px 100px;
-    min-height: 70vh;
-}
-
 .requests {
     min-height: 70vh;
     padding: 30px 100px;
+    color: white !important;
 }
 
 .title-request {
@@ -28,6 +24,10 @@ table {
 .request-row {
     background-color: rgba(255, 255, 255, 0.2);
     border: solid 1px white;
+}
+
+.request-row a:active {
+    color: white !important;
 }
 
 .request-row:hover {
@@ -46,4 +46,9 @@ table {
     height: 20px !important;
     width: 20px !important;
     background-color: #e67e22 !important;
+}
+
+a:link,
+a:active {
+    color: white !important;
 }

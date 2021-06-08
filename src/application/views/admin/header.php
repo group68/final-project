@@ -8,7 +8,6 @@
     <!-- <script>console_log('a string');</script> -->
     <?php echo $html->includeCss("vendor/grid"); ?>
     <?php echo $html->includeCss("common"); ?>
-    <?php echo $html->includeCss("admin"); ?>
 
 </head>
 
