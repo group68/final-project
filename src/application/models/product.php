@@ -80,7 +80,7 @@ class Product extends VanillaModel
                                     GROUP BY oi.product_id) AS a
                                     ON products.product_id = a.product_id
                                     ORDER BY a.purchase_count DESC
-                                    LIMIT 5;";
+                                    LIMIT 6;";
 
         $best_sellers = $this->custom($best_sellers_query);
         // console_log($best_sellers);
@@ -106,7 +106,7 @@ class Product extends VanillaModel
                                 GROUP BY oi.product_id) AS a
                                 ON products.product_id = a.product_id
                                 ORDER BY a.purchase_count DESC
-                                LIMIT 5;";
+                                LIMIT 6;";
 
         $history = $this->custom($history_query);
 

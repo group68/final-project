@@ -59,11 +59,11 @@
             </button>
             <div class="navbar-menu">
                 <ul class="navbar-links">
-                <?php if (isset($_SESSION['isEmployee']) && $_SESSION['isEmployee'] === true) 
-                echo"<li class='navbar-item'><a class='navbar-link_customer' href='/employees/processOrder'>Home</a></li>";
-                else 
-                echo "<li class='navbar-item'><a class='navbar-link_customer' href='/'>Home</a></li>";
-                ?> 
+                    <?php if (isset($_SESSION['isEmployee']) && $_SESSION['isEmployee'] === true)
+                        echo "<li class='navbar-item'><a class='navbar-link_customer' href='/employees/processOrder'>Home</a></li>";
+                    else
+                        echo "<li class='navbar-item'><a class='navbar-link_customer' href='/'>Home</a></li>";
+                    ?>
                     <li class="navbar-item"><a class="navbar-link_customer" href="/">Menu</a></li>
                     <?php
                     if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
@@ -80,9 +80,8 @@
                     }
 
                     ?>
-                    <?php if (isset($_SESSION['isEmployee']) && $_SESSION['isEmployee'] === false) 
-                    echo "<li class='navbar-item'><a class='navbar-link_customer' href='/products/order'><i class='fas fa-cart-plus mr-5'></i>$count_txt</a></li>";?>
-                    
+                    <?php if ((isset($_SESSION['isEmployee']) && $_SESSION['isEmployee'] === false) || !isset($_SESSION['isEmployee']))
+                        echo "<li class='navbar-item'><a class='navbar-link_customer' href='/products/order'><i class='fas fa-cart-plus mr-5'></i>$count_txt</a></li>"; ?>
                     <!-- <form id="demo-2" onsubmit="event.preventDefault();">
                         <input id="search-box" type="search" placeholder="Search">
                     </form> -->

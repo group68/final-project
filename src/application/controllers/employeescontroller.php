@@ -1,10 +1,13 @@
 <?php
 
-class EmployeesController extends VanillaController {
-    function beforeAction() {
+class EmployeesController extends VanillaController
+{
+    function beforeAction()
+    {
     }
 
-    function login() {
+    function login()
+    {
         session_start();
 
         // Check if the user is logged in, otherwise redirect to login page
@@ -73,14 +76,18 @@ class EmployeesController extends VanillaController {
         return true;
     }
 
-    function index() {
+    function index()
+    {
         session_start();
         if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
             if (isset($_SESSION["isEmployee"]) && $_SESSION["isEmployee"] === true) {
                 //do work
                 return true;
             } else {
-                header("Location: /");
+                //now unset the value of customer session
+                //redirect to employee login
+                unset($_SESSION["loggedIn"]);
+                header("Location: /employees/login");
                 exit();
             }
         } else {
@@ -89,7 +96,8 @@ class EmployeesController extends VanillaController {
         }
     }
 
-    function import() {
+    function import()
+    {
         session_start();
 
         if (isset($_SESSION['isEmployee']) && $_SESSION['isEmployee'] === true) {
@@ -127,9 +135,10 @@ class EmployeesController extends VanillaController {
         }
     }
 
-    function processOrder() {
+    function processOrder()
+    {
         session_start();
-        echo $_SESSION['isManager'];
+        // echo $_SESSION['isManager'];
 
         // Check if the user is logged in, otherwise redirect to login page
         if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
@@ -137,7 +146,7 @@ class EmployeesController extends VanillaController {
 
                 // header("location: /employees/index.php");
                 // exit;
-                echo "is employee!\n";
+                // echo "is employee!\n";
             } else {
                 header("location: /");
                 exit;
@@ -150,12 +159,17 @@ class EmployeesController extends VanillaController {
             if (isset($_POST['orders'])) {
                 $orders = $_POST['orders'];
                 foreach ($orders as $order) {
-                    $update = $this->Employee->custom("UPDATE `orders` SET `status` = 1 WHERE `order_id` = $order ");
+                    // echo "$order";
+                    $query = "UPDATE `orders` SET `status` = 1 WHERE `order_id` = {$order}";
+                    // echo "$query";
+                    $update = $this->Employee->custom($query);
+                    $message = '';
                     if ($update) {
-                        echo 'Order processing completed!\n';
+                        $message = 'Order processing completed!';
                     } else {
-                        echo 'Order processing failed\n';
+                        $message = 'Order processing failed';
                     }
+                    $this->setTemplateVariable('message', $message);
                 }
             }
         }
@@ -171,7 +185,8 @@ class EmployeesController extends VanillaController {
     }
 
 
-    function orderDetail($id = null) {
+    function orderDetail($id = null)
+    {
         session_start();
         if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
             if (isset($_SESSION["isEmployee"]) && $_SESSION["isEmployee"] === true) {
@@ -189,7 +204,8 @@ class EmployeesController extends VanillaController {
         }
     }
 
-    function logOut() {
+    function logOut()
+    {
         session_start();
         if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
             $_SESSION["loggedIn"] = false;
@@ -202,14 +218,17 @@ class EmployeesController extends VanillaController {
         exit();
     }
 
-    function view($id = null) {
+    function view($id = null)
+    {
     }
 
 
-    function afterAction() {
+    function afterAction()
+    {
     }
 
-    function viewstock() {
+    function viewstock()
+    {
         session_start();
         if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
             if (isset($_SESSION["isEmployee"]) && $_SESSION["isEmployee"] === true) {
