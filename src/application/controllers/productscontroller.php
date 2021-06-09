@@ -151,6 +151,8 @@ class ProductsController extends VanillaController
                         }
                         if ($this->Product->submitOrder($_SESSION["id"], $products)) {
                             // echo "hehe enter here <br/>";
+                            $msg = "Order successfully!";
+                            echo "<script type='text/javascript'>alert('$msg');</script>";
                             unset($products);
                             unset($_SESSION["cart_item"]);
                             unset($_SESSION["item_count"]);
