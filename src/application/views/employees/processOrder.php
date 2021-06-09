@@ -1,6 +1,6 @@
 <?php echo $html->includeCss("orders"); ?>
 <div class="body-container p-base">
-    <div class="order-container">
+<div class="order-container">
     <div class="row text-center">
         <h2>All orders you've not processed</h2>
         <p>
@@ -46,5 +46,6 @@
                 <input type="reset" value="Reset" class="btn btn-secondary">
         </form>
     </div>
+    <div class="mt-15">Want to request manager to import more ingredients <a href="/employees/import">Click here!</a></div>
 </div>
-            </div>
+</div>
