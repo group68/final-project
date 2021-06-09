@@ -59,12 +59,17 @@
             </button>
             <div class="navbar-menu">
                 <ul class="navbar-links">
-                    <li class="navbar-item"><a class="navbar-link_customer" href="/">Home</a></li>
+                <?php if (isset($_SESSION['isEmployee']) && $_SESSION['isEmployee'] === true) 
+                echo"<li class='navbar-item'><a class='navbar-link_customer' href='/employees/processOrder'>Home</a></li>";
+                else 
+                echo "<li class='navbar-item'><a class='navbar-link_customer' href='/'>Home</a></li>";
+                ?> 
                     <li class="navbar-item"><a class="navbar-link_customer" href="/">Menu</a></li>
                     <?php
                     if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
                         if (isset($_SESSION['isEmployee']) && $_SESSION['isEmployee'] === true) {
                             $username = htmlentities($_SESSION['username']);
+                            echo "<li class='navbar-item'><a href='/employees/viewstock' class='navbar-link_customer'>Stockroom</a></li>";
                             echo "<li class='navbar-item'><a href='#' class='navbar-link_customer'><i class='fas fa-user-circle icon-small'></i>Hi, {$username}</a></li>";
                             echo "<li class='navbar-item'><a class='navbar-link_customer' href='/employees/logout'>Logout</a></li>";
                         } else {
@@ -75,7 +80,9 @@
                     }
 
                     ?>
-                    <li class="navbar-item"><a class="navbar-link_customer" href="/products/order"><i class="fas fa-cart-plus mr-5"></i><?php echo ' ' . $count_txt ?></a></li>
+                    <?php if (isset($_SESSION['isEmployee']) && $_SESSION['isEmployee'] === false) 
+                    echo "<li class='navbar-item'><a class='navbar-link_customer' href='/products/order'><i class='fas fa-cart-plus mr-5'></i>$count_txt</a></li>";?>
+                    
                     <!-- <form id="demo-2" onsubmit="event.preventDefault();">
                         <input id="search-box" type="search" placeholder="Search">
                     </form> -->

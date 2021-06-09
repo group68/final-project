@@ -29,6 +29,7 @@ function console_log($output, $with_script_tags = true) {
             <th>Product ID</th>
             <th>Product Name</th>
             <th>Quantity</th>
+            <th>Stock Qty</th>
             <th>Unit Price</th>
             <th>Total</th>
         </tr>
@@ -36,14 +37,15 @@ function console_log($output, $with_script_tags = true) {
         <?php
         foreach ($items as $item) {
             $total_price = ($item['Order_detail']['quantity'] * $item['Order_detail']['price']);
+            $stock = $item['Order_detail']['quantity'] + 15;
             echo "<tr>";
             echo "<td>{$item['Order_detail']['order_id']}</td>";
             echo "<td>{$item['Order_detail']['product_id']}</td>";
             echo "<td>{$item['Order_detail']['name']}</td>";
             echo "<td>{$item['Order_detail']['quantity']}</td>";
+            echo "<td>$stock</td>";
             echo "<td>{$item['Order_detail']['price']}</td>";
             echo "<td>{$total_price}</td>";
-
             echo "</tr>";
         }
         ?>
